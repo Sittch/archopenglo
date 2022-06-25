@@ -139,10 +139,11 @@ static void Sky(double D)
    glPushMatrix();
    glScaled(D,D,D);
    glEnable(GL_TEXTURE_2D);
-   glColor3f(1,1,1);
+   //glColor3f(1,1,1);
 
    //  Sides
    glBindTexture(GL_TEXTURE_2D,texture[19]);
+   glColor3f(1,1,1);
    glBegin(GL_QUADS);
    glTexCoord2f(0.00,0); glVertex3f(-1,0,-1);
    glTexCoord2f(0.25,0); glVertex3f(+1,0,-1);
@@ -167,6 +168,7 @@ static void Sky(double D)
 
    //  Top
    glBindTexture(GL_TEXTURE_2D,texture[14]);
+   glColor3f(1,1,1);
    glBegin(GL_QUADS);
    glTexCoord2f(0.0,0); glVertex3f(+1,+1,-1);
    glTexCoord2f(0.5,0); glVertex3f(+1,+1,+1);
@@ -176,6 +178,7 @@ static void Sky(double D)
 
    // Bottom
    glBindTexture(GL_TEXTURE_2D,texture[2]);
+   glColor4f(1.0,1.0,1.0,0.5);
    glBegin(GL_QUADS);
    glTexCoord2f(1.0,1); glVertex3f(-1,0,+1);
    glTexCoord2f(0.5,1); glVertex3f(+1,0,+1);
@@ -197,10 +200,11 @@ static void ocean(double D)
    glPushMatrix();
    glScaled(D,D,D);
    glEnable(GL_TEXTURE_2D);
-   glColor3f(1,1,1);
+   //glColor3f(1,1,1);
 
    //  Sides
    glBindTexture(GL_TEXTURE_2D,texture[17]);
+   glColor3f(1,1,1);
    glBegin(GL_QUADS);
    glTexCoord2f(0.00,0); glVertex3f(-1,0,-1);
    glTexCoord2f(0.25,0); glVertex3f(+1,0,-1);
@@ -225,6 +229,7 @@ static void ocean(double D)
 
    //  Bottom
    glBindTexture(GL_TEXTURE_2D,texture[18]);
+   glColor3f(1,1,1);
    glBegin(GL_QUADS);
    glTexCoord2f(0.0,0); glVertex3f(+1,-1,-1);
    glTexCoord2f(0.5,0); glVertex3f(+1,-1,+1);
@@ -234,6 +239,7 @@ static void ocean(double D)
 
    // Top
    glBindTexture(GL_TEXTURE_2D,texture[2]);
+   glColor4f(1.0,1.0,1.0,0.5);
    glBegin(GL_QUADS);
    glTexCoord2f(1.0,1); glVertex3f(-1,0,+1);
    glTexCoord2f(0.5,1); glVertex3f(+1,0,+1);
@@ -627,6 +633,9 @@ void display()
    glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
    //  Enable Z-buffering in OpenGL
    glEnable(GL_DEPTH_TEST);
+   //  Enable opacity
+   glEnable(GL_BLEND);
+   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
    //  Undo previous transformations
    glLoadIdentity();
    
@@ -659,7 +668,7 @@ if (HasFog)
    glFogf(GL_FOG_DENSITY, FogDensity);                //How dense the fog will be
    glHint(GL_FOG_HINT, GL_DONT_CARE);                 //Fog hint value
    glFogf(GL_FOG_START, 5.0);                         //Fog start depth (50.0)
-   glFogf(GL_FOG_END, 100.0);                          //Fog end depth (400.0)
+   glFogf(GL_FOG_END, 75.0);                          //Fog end depth (400.0)
    glEnable(GL_FOG);                                  //Enables GL_FOG
 }
 else
