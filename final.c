@@ -33,16 +33,16 @@ int shininess =   0;       // Shininess (power of two)
 float shiny   =   1;       // Shininess (value)
 int zh        =  90;       // Light azimuth
 float ylight  = 7.8;       // Elevation of light
-unsigned int texture[19];     // Texture names
+unsigned int texture[20];     // Texture names
 
 int num     =  1;     // Ocean polygons
 int axes    =  0;     // Display axes
 int ntex    =  0;     // Cube faces
-int mode    =  0;     // Projection mode
+int mode    =  1;     // Projection mode
 int move    =  1;     // Move light
 int th      = -270;   // Azimuth of view angle
 int ph      =  25;    // Elevation of view angle
-int fov     =  43;    // Field of view (for perspective)
+int fov     =  55;    // Field of view (for perspective)
 double asp  =  1;     // Aspect ratio
 double dim  =  10.0;  // Size of world
 int inc     =  10;    // Ball increment
@@ -53,9 +53,9 @@ int Co = 0;
 int Cr = 0;
 
 // Eye Position
-double Ex = 0;
+double Ex = 1;
 double Ey = 1;
-double Ez = 15;
+double Ez = 1;
 
 // Position of Focus
 double Fx = 0;
@@ -127,7 +127,7 @@ void Project(double fov,double asp, double dim)
 
 
 /* 
- *  Draw sky box
+ *  Draw sky box (adapted from examples)
  */
 static void Sky(double D)
 {
@@ -138,30 +138,30 @@ static void Sky(double D)
    glColor3f(1,1,1);
 
    //  Sides
-   glBindTexture(GL_TEXTURE_2D,texture[14]);
+   glBindTexture(GL_TEXTURE_2D,texture[19]);
    glBegin(GL_QUADS);
-   glTexCoord2f(0.00,0); glVertex3f(-1,-1,-1);
-   glTexCoord2f(0.25,0); glVertex3f(+1,-1,-1);
+   glTexCoord2f(0.00,0); glVertex3f(-1,0,-1);
+   glTexCoord2f(0.25,0); glVertex3f(+1,0,-1);
    glTexCoord2f(0.25,1); glVertex3f(+1,+1,-1);
    glTexCoord2f(0.00,1); glVertex3f(-1,+1,-1);
 
-   glTexCoord2f(0.25,0); glVertex3f(+1,-1,-1);
-   glTexCoord2f(0.50,0); glVertex3f(+1,-1,+1);
+   glTexCoord2f(0.25,0); glVertex3f(+1,0,-1);
+   glTexCoord2f(0.50,0); glVertex3f(+1,0,+1);
    glTexCoord2f(0.50,1); glVertex3f(+1,+1,+1);
    glTexCoord2f(0.25,1); glVertex3f(+1,+1,-1);
 
-   glTexCoord2f(0.50,0); glVertex3f(+1,-1,+1);
-   glTexCoord2f(0.75,0); glVertex3f(-1,-1,+1);
+   glTexCoord2f(0.50,0); glVertex3f(+1,0,+1);
+   glTexCoord2f(0.75,0); glVertex3f(-1,0,+1);
    glTexCoord2f(0.75,1); glVertex3f(-1,+1,+1);
    glTexCoord2f(0.50,1); glVertex3f(+1,+1,+1);
 
-   glTexCoord2f(0.75,0); glVertex3f(-1,-1,+1);
-   glTexCoord2f(1.00,0); glVertex3f(-1,-1,-1);
+   glTexCoord2f(0.75,0); glVertex3f(-1,0,+1);
+   glTexCoord2f(1.00,0); glVertex3f(-1,0,-1);
    glTexCoord2f(1.00,1); glVertex3f(-1,+1,-1);
    glTexCoord2f(0.75,1); glVertex3f(-1,+1,+1);
    glEnd();
 
-   //  Top and bottom
+   //  Top
    glBindTexture(GL_TEXTURE_2D,texture[14]);
    glBegin(GL_QUADS);
    glTexCoord2f(0.0,0); glVertex3f(+1,+1,-1);
@@ -170,12 +170,71 @@ static void Sky(double D)
    glTexCoord2f(0.0,1); glVertex3f(-1,+1,-1);
    glEnd();
 
-   glBindTexture(GL_TEXTURE_2D,texture[11]);
+   // Bottom
+   glBindTexture(GL_TEXTURE_2D,texture[2]);
    glBegin(GL_QUADS);
-   glTexCoord2f(1.0,1); glVertex3f(-1,-1,+1);
-   glTexCoord2f(0.5,1); glVertex3f(+1,-1,+1);
-   glTexCoord2f(0.5,0); glVertex3f(+1,-1,-1);
-   glTexCoord2f(1.0,0); glVertex3f(-1,-1,-1);
+   glTexCoord2f(1.0,1); glVertex3f(-1,0,+1);
+   glTexCoord2f(0.5,1); glVertex3f(+1,0,+1);
+   glTexCoord2f(0.5,0); glVertex3f(+1,0,-1);
+   glTexCoord2f(1.0,0); glVertex3f(-1,0,-1);
+   glEnd();
+
+   //  Undo
+   glDisable(GL_TEXTURE_2D);
+   glPopMatrix();
+}
+
+/* 
+ *  Draw ocean box (adapted from examples)
+ */
+static void ocean(double D)
+{
+   //  Textured white box dimension (-D,+D)
+   glPushMatrix();
+   glScaled(D,D,D);
+   glEnable(GL_TEXTURE_2D);
+   glColor3f(1,1,1);
+
+   //  Sides
+   glBindTexture(GL_TEXTURE_2D,texture[17]);
+   glBegin(GL_QUADS);
+   glTexCoord2f(0.00,0); glVertex3f(-1,0,-1);
+   glTexCoord2f(0.25,0); glVertex3f(+1,0,-1);
+   glTexCoord2f(0.25,1); glVertex3f(+1,-1,-1);
+   glTexCoord2f(0.00,1); glVertex3f(-1,-1,-1);
+
+   glTexCoord2f(0.25,0); glVertex3f(+1,0,-1);
+   glTexCoord2f(0.50,0); glVertex3f(+1,0,+1);
+   glTexCoord2f(0.50,1); glVertex3f(+1,-1,+1);
+   glTexCoord2f(0.25,1); glVertex3f(+1,-1,-1);
+
+   glTexCoord2f(0.50,0); glVertex3f(+1,0,+1);
+   glTexCoord2f(0.75,0); glVertex3f(-1,0,+1);
+   glTexCoord2f(0.75,1); glVertex3f(-1,-1,+1);
+   glTexCoord2f(0.50,1); glVertex3f(+1,-1,+1);
+
+   glTexCoord2f(0.75,0); glVertex3f(-1,0,+1);
+   glTexCoord2f(1.00,0); glVertex3f(-1,0,-1);
+   glTexCoord2f(1.00,1); glVertex3f(-1,-1,-1);
+   glTexCoord2f(0.75,1); glVertex3f(-1,-1,+1);
+   glEnd();
+
+   //  Bottom
+   glBindTexture(GL_TEXTURE_2D,texture[18]);
+   glBegin(GL_QUADS);
+   glTexCoord2f(0.0,0); glVertex3f(+1,-1,-1);
+   glTexCoord2f(0.5,0); glVertex3f(+1,-1,+1);
+   glTexCoord2f(0.5,1); glVertex3f(-1,-1,+1);
+   glTexCoord2f(0.0,1); glVertex3f(-1,-1,-1);
+   glEnd();
+
+   // Top
+   glBindTexture(GL_TEXTURE_2D,texture[2]);
+   glBegin(GL_QUADS);
+   glTexCoord2f(1.0,1); glVertex3f(-1,0,+1);
+   glTexCoord2f(0.5,1); glVertex3f(+1,0,+1);
+   glTexCoord2f(0.5,0); glVertex3f(+1,0,-1);
+   glTexCoord2f(1.0,0); glVertex3f(-1,0,-1);
    glEnd();
 
    //  Undo
@@ -582,34 +641,37 @@ void display()
    // Draw scene
 
    //  Draw sky
-   Sky(1.2*dim);
+   Sky(3.5*dim);
 
-   // Ocean
-   float white[] = {1,1,1,1};
-   float blue[] = {0.400,0.804,0.6671};
-   
-   glMaterialf(GL_FRONT_AND_BACK,GL_SHININESS,shiny);
-   glMaterialfv(GL_FRONT_AND_BACK,GL_SPECULAR,white);
-   glMaterialfv(GL_FRONT_AND_BACK,GL_EMISSION,blue);
-   
-   glPushMatrix();
-   
-   // Texture
-   glEnable(GL_TEXTURE_2D);
-   //mode?GL_REPLACE:
-   glTexEnvi(GL_TEXTURE_ENV , GL_TEXTURE_ENV_MODE , GL_MODULATE);
-   glColor3f(0.400,0.804,0.667);
-   glBindTexture(GL_TEXTURE_2D,texture[2]);
+   // Draw ocean
+   ocean(3.5*dim);
 
-   glBegin(GL_QUADS);
-   glNormal3f(0,1,0); 
-   glTexCoord2f(0.0,0.0); glVertex3f(-100,0,100);
-   glTexCoord2f(1.0,0.0); glVertex3f(-100,0,-100);
-   glTexCoord2f(1.0,1.0); glVertex3f(100,0,-100);
-   glTexCoord2f(0.0,1.0); glVertex3f(100,0,100);
-   glEnd();
-   glPopMatrix();
-   glDisable(GL_TEXTURE_2D);
+   // // Ocean
+   // float white[] = {1,1,1,1};
+   // float blue[] = {0.400,0.804,0.6671};
+   
+   // glMaterialf(GL_FRONT_AND_BACK,GL_SHININESS,shiny);
+   // glMaterialfv(GL_FRONT_AND_BACK,GL_SPECULAR,white);
+   // glMaterialfv(GL_FRONT_AND_BACK,GL_EMISSION,blue);
+   
+   // glPushMatrix();
+   
+   // // Texture
+   // glEnable(GL_TEXTURE_2D);
+   // //mode?GL_REPLACE:
+   // glTexEnvi(GL_TEXTURE_ENV , GL_TEXTURE_ENV_MODE , GL_MODULATE);
+   // glColor3f(0.400,0.804,0.667);
+   // glBindTexture(GL_TEXTURE_2D,texture[2]);
+
+   // glBegin(GL_QUADS);
+   // glNormal3f(0,1,0); 
+   // glTexCoord2f(0.0,0.0); glVertex3f(-100,0,100);
+   // glTexCoord2f(1.0,0.0); glVertex3f(-100,0,-100);
+   // glTexCoord2f(1.0,1.0); glVertex3f(100,0,-100);
+   // glTexCoord2f(0.0,1.0); glVertex3f(100,0,100);
+   // glEnd();
+   // glPopMatrix();
+   // glDisable(GL_TEXTURE_2D);
 
 
    // Island 1
@@ -668,7 +730,7 @@ void display()
    glWindowPos2i(5,5);
    
    Print("Angle=%d,%d  Dim=%.1f FOV=%d Projection=%s Light=%s",
-     th,ph,dim,fov,mode?"Perpective":"Orthogonal",light?"On":"Off");
+     th,ph,dim,fov,mode?"Perspective":"Orthogonal",light?"On":"Off");
    if (light)
    {
       glWindowPos2i(5,45);
@@ -944,6 +1006,7 @@ int main(int argc,char* argv[])
    texture[16] = LoadTexBMP("lighthouse1.bmp");
    texture[17] = LoadTexBMP("underwaterside1.bmp");
    texture[18] = LoadTexBMP("seafloor1.bmp");
+   texture[19] = LoadTexBMP("skyside1.bmp");
 
    //  Pass control to GLUT so it can interact with the user
    ErrCheck("init");
