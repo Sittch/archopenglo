@@ -47,6 +47,10 @@ double asp  =  1;     // Aspect ratio
 double dim  =  10.0;  // Size of world
 int inc     =  10;    // Ball increment
 
+int HasFog = 1;       // Fog toggle
+int FogMode = 2;      // Toggle fog mode
+int FogDensity = 1;   // Density of fog
+
 //(adapted from examples with suggestions from Paul Hoffman)
 // FPS
 int Co = 0;
@@ -436,6 +440,43 @@ static void moon(double x,double y,double z,double r) // adapted from examples
    glPopMatrix();
 }
 
+static void beachball(double x,double y,double z,double r) // adapted from examples
+{
+   int th,ph;
+   float yellow[] = {1.0,1.0,0.0,1.0};
+   float Emission[]  = {0.0,0.0,0.01*emission,1.0};
+   //  Save transformation
+   glPushMatrix();
+
+   //  Offset, scale and rotate
+   glTranslated(x,y,z);
+   glScaled(r,r,r);
+
+   // Set texture
+   glEnable(GL_TEXTURE_2D);
+   glBindTexture(GL_TEXTURE_2D,texture[15]);
+
+   //  Sphere
+   //glColor3f(1, 1, 1);
+   glMaterialf(GL_FRONT,GL_SHININESS,shiny);
+   glMaterialfv(GL_FRONT,GL_SPECULAR,yellow);
+   glMaterialfv(GL_FRONT,GL_EMISSION,Emission);
+   //  Bands of latitude
+   for (ph=-90;ph<90;ph+=inc)
+   {
+      glBegin(GL_QUAD_STRIP);
+      for (th=0;th<=360;th+=2*inc)
+      {
+         Vertex(th,ph);
+         Vertex(th,ph+inc);
+      }
+      glEnd();
+   }
+   //  Undo transformations
+   glDisable(GL_TEXTURE_2D);
+   glPopMatrix();
+}
+
 //(from ex13)
 typedef struct {float x,y,z;} vtx;
 typedef struct {int A,B,C;} tri;
@@ -606,6 +647,24 @@ void display()
    //  Flat or smooth shading
    glShadeModel(smooth ? GL_SMOOTH : GL_FLAT);
 
+
+// Murky water
+if (HasFog)
+{
+   GLuint fogMode[]= { GL_EXP, GL_EXP2, GL_LINEAR };  //Fog type storage
+   GLfloat fogColor[4]= {0.3, 0.6, 0.6, 1.0};         //Fog color
+   glClearColor(0.3,0.6,0.6,1.0);                     //We'll clear to the color of the fog (Modified)
+   glFogi(GL_FOG_MODE, fogMode[FogMode]);             //Fog mode
+   glFogfv(GL_FOG_COLOR, fogColor);                   //Set Fog Color
+   glFogf(GL_FOG_DENSITY, FogDensity);                //How dense the fog will be
+   glHint(GL_FOG_HINT, GL_DONT_CARE);                 //Fog hint value
+   glFogf(GL_FOG_START, 5.0);                         //Fog start depth (50.0)
+   glFogf(GL_FOG_END, 100.0);                          //Fog end depth (400.0)
+   glEnable(GL_FOG);                                  //Enables GL_FOG
+}
+else
+   glDisable(GL_FOG);
+
  //  Light switch
    if (light)
    {
@@ -698,6 +757,9 @@ void display()
    //glColor3f(0.855, 0.647, 0.125);
    glColor3f(0.5, 0.7, 0.5);
    moon(2,8,2,1);
+
+   // Beach ball
+   beachball(1,0.2,4,0.2);
 
    // Coconut
    glColor3f(0.295, 0.131, 0.035);
