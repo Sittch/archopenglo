@@ -714,33 +714,6 @@ else
    // Draw ocean
    ocean(3.5*dim);
 
-   // // Ocean
-   // float white[] = {1,1,1,1};
-   // float blue[] = {0.400,0.804,0.6671};
-   
-   // glMaterialf(GL_FRONT_AND_BACK,GL_SHININESS,shiny);
-   // glMaterialfv(GL_FRONT_AND_BACK,GL_SPECULAR,white);
-   // glMaterialfv(GL_FRONT_AND_BACK,GL_EMISSION,blue);
-   
-   // glPushMatrix();
-   
-   // // Texture
-   // glEnable(GL_TEXTURE_2D);
-   // //mode?GL_REPLACE:
-   // glTexEnvi(GL_TEXTURE_ENV , GL_TEXTURE_ENV_MODE , GL_MODULATE);
-   // glColor3f(0.400,0.804,0.667);
-   // glBindTexture(GL_TEXTURE_2D,texture[2]);
-
-   // glBegin(GL_QUADS);
-   // glNormal3f(0,1,0); 
-   // glTexCoord2f(0.0,0.0); glVertex3f(-100,0,100);
-   // glTexCoord2f(1.0,0.0); glVertex3f(-100,0,-100);
-   // glTexCoord2f(1.0,1.0); glVertex3f(100,0,-100);
-   // glTexCoord2f(0.0,1.0); glVertex3f(100,0,100);
-   // glEnd();
-   // glPopMatrix();
-   // glDisable(GL_TEXTURE_2D);
-
 
    // Island 1
    // Sandy beach
@@ -762,6 +735,38 @@ else
    slab(0,3.25,0,1,3,1,90);
    glDisable(GL_TEXTURE_2D);
 
+   // Coconut
+   glColor3f(0.295, 0.131, 0.035);
+   //glBindTexture(GL_TEXTURE_2D,texture[0]);
+   icosasphere(0.85,1.65,0.85,0.1);
+
+
+   // Island 2
+   // Sandy beach
+   glColor3f(0.804,0.522,0.247);
+   //glBindTexture(GL_TEXTURE_2D,texture[6]);
+   hemisphere(4, 0, 4, 2, 0, 0, 90);
+   //glDisable(GL_TEXTURE_2D);
+
+   // Palm trunk
+   glColor3f(0.545, 0.271, 0.075);
+   glBindTexture(GL_TEXTURE_2D,texture[3]);
+   palmtrunk(4,1,4,0.125,2.2,0,0,0);
+   glDisable(GL_TEXTURE_2D);
+
+   // Palm leaves
+   //glColor3f(0.000, 0.392, 0.000);
+   glBindTexture(GL_TEXTURE_2D,texture[3]);
+   slab(4,3.25,4,1,3,1,0);
+   slab(4,3.25,4,1,3,1,90);
+   glDisable(GL_TEXTURE_2D);
+
+   // Coconut
+   glColor3f(0.295, 0.131, 0.035);
+   //glBindTexture(GL_TEXTURE_2D,texture[0]);
+   icosasphere(4.85,1.65,4.85,0.1);
+
+
    // Moon
    //glColor3f(0.855, 0.647, 0.125);
    glColor3f(0.5, 0.7, 0.5);
@@ -769,11 +774,6 @@ else
 
    // Beach ball
    beachball(1,0.2,4,0.2);
-
-   // Coconut
-   glColor3f(0.295, 0.131, 0.035);
-   //glBindTexture(GL_TEXTURE_2D,texture[0]);
-   icosasphere(0.85,1.65,0.85,0.1);
 
    //glDisable(GL_TEXTURE_2D);
    glDisable(GL_LIGHTING);
