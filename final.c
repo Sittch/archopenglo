@@ -19,6 +19,13 @@
 #endif
 
 
+#define HEIGHT 600
+#define WIDTH 600
+
+unsigned char matrix[HEIGHT][WIDTH][3]; // r,g,b
+double offset=0;
+
+
 // Light values (adapted from examples)
 int light     =   1;       // Lighting
 int one       =   1;       // Unit value
@@ -33,7 +40,7 @@ int shininess =   0;       // Shininess (power of two)
 float shiny   =   1;       // Shininess (value)
 int zh        =  90;       // Light azimuth
 float ylight  = 7.8;       // Elevation of light
-unsigned int texture[20];     // Texture names
+unsigned int texture[27];     // Texture names
 
 int num     =  1;     // Ocean polygons
 int axes    =  0;     // Display axes
@@ -50,6 +57,7 @@ int inc     =  10;    // Ball increment
 int HasFog = 1;       // Fog toggle
 int FogMode = 2;      // Toggle fog mode
 int FogDensity = 1;   // Density of fog
+int bob = 80;        //Bobbing
 
 //(adapted from examples with suggestions from Paul Hoffman)
 // FPS
@@ -353,7 +361,7 @@ void palmtrunk(double x,double y,double z,
    //  Enable textures
    glEnable(GL_TEXTURE_2D);
    glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,GL_MODULATE);
-   glBindTexture(GL_TEXTURE_2D,texture[4]);
+   //glBindTexture(GL_TEXTURE_2D,texture[4]);
 
    glColor3f(1,1,1);
    // Upper Part
@@ -483,6 +491,45 @@ static void beachball(double x,double y,double z,double r) // adapted from examp
    glPopMatrix();
 }
 
+
+static void sphere(double x,double y,double z,double r) // adapted from examples
+{
+   int th,ph;
+   float yellow[] = {1.0,1.0,0.0,1.0};
+   float Emission[]  = {0.0,0.0,0.01*emission,1.0};
+   //  Save transformation
+   glPushMatrix();
+
+   //  Offset, scale and rotate
+   glTranslated(x,y,z);
+   glScaled(r,r,r);
+
+   // Set texture
+   glEnable(GL_TEXTURE_2D);
+   //glBindTexture(GL_TEXTURE_2D,texture[15]);
+
+   //  Sphere
+   //glColor3f(1, 1, 1);
+   glMaterialf(GL_FRONT,GL_SHININESS,shiny);
+   glMaterialfv(GL_FRONT,GL_SPECULAR,yellow);
+   glMaterialfv(GL_FRONT,GL_EMISSION,Emission);
+   //  Bands of latitude
+   for (ph=-90;ph<90;ph+=inc)
+   {
+      glBegin(GL_QUAD_STRIP);
+      for (th=0;th<=360;th+=2*inc)
+      {
+         Vertex(th,ph);
+         Vertex(th,ph+inc);
+      }
+      glEnd();
+   }
+   //  Undo transformations
+   glDisable(GL_TEXTURE_2D);
+   glPopMatrix();
+}
+
+
 //(from ex13)
 typedef struct {float x,y,z;} vtx;
 typedef struct {int A,B,C;} tri;
@@ -554,7 +601,7 @@ static void hemisphere(double x,double y,double z,double r,double rx,double ry,d
 
    // Set texture
    glEnable(GL_TEXTURE_2D);
-   glBindTexture(GL_TEXTURE_2D,texture[8]);
+   //glBindTexture(GL_TEXTURE_2D,texture[8]);
 
    //  Sphere
    //glColor3f(1, 1, 1);
@@ -706,6 +753,9 @@ else
    else
       glDisable(GL_LIGHTING);
 
+   float BobbingA[]  = {((sin(bob)/8)+0.1),1.0};
+   float BobbingB[]  = {((-sin(bob)/8)+0.1),1.0};
+
    // Draw scene
 
    //  Draw sky
@@ -718,13 +768,13 @@ else
    // Island 1
    // Sandy beach
    glColor3f(0.804,0.522,0.247);
-   //glBindTexture(GL_TEXTURE_2D,texture[6]);
+   glBindTexture(GL_TEXTURE_2D,texture[8]);
    hemisphere(0, 0, 0, 2, 0, 0, 90);
    //glDisable(GL_TEXTURE_2D);
 
    // Palm trunk
    glColor3f(0.545, 0.271, 0.075);
-   glBindTexture(GL_TEXTURE_2D,texture[3]);
+   glBindTexture(GL_TEXTURE_2D,texture[4]);
    palmtrunk(0,1,0,0.125,2.2,0,0,0);
    glDisable(GL_TEXTURE_2D);
 
@@ -740,17 +790,22 @@ else
    //glBindTexture(GL_TEXTURE_2D,texture[0]);
    icosasphere(0.85,1.65,0.85,0.1);
 
+   // Coconut - floating
+   glColor3f(0.295, 0.131, 0.035);
+   glBindTexture(GL_TEXTURE_2D,texture[0]);
+   sphere(-3,BobbingA[0],3,0.1);
+
 
    // Island 2
    // Sandy beach
    glColor3f(0.804,0.522,0.247);
-   //glBindTexture(GL_TEXTURE_2D,texture[6]);
+   glBindTexture(GL_TEXTURE_2D,texture[8]);
    hemisphere(4, 0, 4, 2, 0, 0, 90);
    //glDisable(GL_TEXTURE_2D);
 
    // Palm trunk
    glColor3f(0.545, 0.271, 0.075);
-   glBindTexture(GL_TEXTURE_2D,texture[3]);
+   glBindTexture(GL_TEXTURE_2D,texture[4]);
    palmtrunk(4,1,4,0.125,2.2,0,0,0);
    glDisable(GL_TEXTURE_2D);
 
@@ -767,13 +822,42 @@ else
    icosasphere(4.85,1.65,4.85,0.1);
 
 
+   // Island 3
+   // Rocky beach
+   glColor3f(0.4,0.4,0.4);
+   glBindTexture(GL_TEXTURE_2D,texture[5]);
+   hemisphere(-4, 0, -4, 2, 0, 0, 90);
+   //glDisable(GL_TEXTURE_2D);
+
+   // Palm trunk
+   glColor3f(0.545, 0.271, 0.075);
+   glBindTexture(GL_TEXTURE_2D,texture[16]);
+   palmtrunk(-4,1,-4,0.125,2.2,0,0,0);
+   glDisable(GL_TEXTURE_2D);
+
+   // Palm leaves
+   //glColor3f(0.000, 0.392, 0.000);
+   //glBindTexture(GL_TEXTURE_2D,texture[3]);
+   //slab(-4,3.25,-4,1,3,1,0);
+   //slab(-4,3.25,-4,1,3,1,90);
+   //glDisable(GL_TEXTURE_2D);
+
+   // Coconut
+   glColor3f(0.295, 0.131, 0.035);
+   //glBindTexture(GL_TEXTURE_2D,texture[0]);
+   icosasphere(-4.85,1.65,-4.85,0.1);
+
+
    // Moon
    //glColor3f(0.855, 0.647, 0.125);
    glColor3f(0.5, 0.7, 0.5);
    moon(2,8,2,1);
 
    // Beach ball
-   beachball(1,0.2,4,0.2);
+   beachball(1,BobbingA[0],4,0.2);
+
+   // Beach ball - moving
+   beachball(-7,BobbingB[0],5,0.2);
 
    //glDisable(GL_TEXTURE_2D);
    glDisable(GL_LIGHTING);
@@ -824,6 +908,42 @@ void idle()
    //  Elapsed time in seconds
    double t = glutGet(GLUT_ELAPSED_TIME)/1000.0;
    zh = fmod(90*t,360.0);
+
+   // Buoyancy
+   double waves = glutGet(GLUT_ELAPSED_TIME)/1000.0;
+   bob = fmod(9*waves,360.0);
+   
+    
+   // static float count = 0.0;
+
+   //  int i,j;
+   //  count += 0.05;
+   //  offset-=0.14;
+
+   //  for(i=0;i<200;i++)
+   //      for(j=0;j<WIDTH;j++)
+   //      {
+   //          matrix[i][j][0] = 0; // red
+   //          matrix[i][j][1] = 200 + 55 * sin(count + j * 0.02); // green
+   //          matrix[i][j][2] = 0; // blue
+   //      }
+
+   //  for(i=200;i<400;i++)
+   //      for(j=0;j<WIDTH;j++)
+   //      {
+   //          matrix[i][j][0] = 200 + 55 * sin(count + j * 0.02); // red
+   //          matrix[i][j][1] = 200 + 55 * sin(count + j * 0.02); // green
+   //          matrix[i][j][2] = 200 + 55 * sin(count + j * 0.02); // blue
+   //      }
+
+   //  for(i=400;i<600;i++)
+   //      for(j=0;j<WIDTH;j++)
+   //      {
+   //          matrix[i][j][0] = 0; // red
+   //          matrix[i][j][1] = 0; // green
+   //          matrix[i][j][2] = 200 + 55 * sin(count + j * 0.02); // blue
+   //      }
+
    //  Tell GLUT it is necessary to redisplay the scene
    glutPostRedisplay();
 }
@@ -1078,6 +1198,13 @@ int main(int argc,char* argv[])
    texture[17] = LoadTexBMP("underwaterside1.bmp");
    texture[18] = LoadTexBMP("seafloor1.bmp");
    texture[19] = LoadTexBMP("skyside1.bmp");
+   //texture[20] = LoadTexBMP("seaweed1.bmp");
+   //texture[21] = LoadTexBMP("seaweed2.bmp");
+   //texture[22] = LoadTexBMP("seaweed3.bmp");
+   //texture[23] = LoadTexBMP("seaweed4.bmp");
+   //texture[24] = LoadTexBMP("coloflag1.bmp");
+   //texture[25] = LoadTexBMP("coloflag2.bmp");
+   texture[26] = LoadTexBMP("coloflag3.bmp");
 
    //  Pass control to GLUT so it can interact with the user
    ErrCheck("init");
