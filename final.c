@@ -57,7 +57,7 @@ int inc     =  10;    // Ball increment
 int HasFog = 1;       // Fog toggle
 int FogMode = 2;      // Toggle fog mode
 int FogDensity = 1;   // Density of fog
-int bob = 80;        //Bobbing
+int bob = 8;        //Bobbing
 
 //(adapted from examples with suggestions from Paul Hoffman)
 // FPS
@@ -766,10 +766,6 @@ else
    // Draw ocean
    ocean(3.5*dim);
 
-   glBindTexture(GL_TEXTURE_2D,texture[2]);
-   water();
-
-
    // Island 1
    // Sandy beach
    glColor3f(0.804,0.522,0.247);
@@ -837,13 +833,13 @@ else
    // Rocky beach
    glColor3f(0.4,0.4,0.4);
    glBindTexture(GL_TEXTURE_2D,texture[5]);
-   hemisphere(-4, 0, -4, 2, 0, 0, 90);
+   hemisphere(-4, 3, -4, 2, 0, 0, 90);
    //glDisable(GL_TEXTURE_2D);
 
    // Palm trunk
    glColor3f(0.545, 0.271, 0.075);
    glBindTexture(GL_TEXTURE_2D,texture[16]);
-   palmtrunk(-4,1,-4,0.125,2.2,0,0,0);
+   palmtrunk(-4,4,-4,0.125,2.2,0,0,0);
    glDisable(GL_TEXTURE_2D);
 
    // Palm leaves
@@ -865,10 +861,10 @@ else
    moon(2,8,2,1);
 
    // Beach ball
-   beachball(1,BobbingA[0],4,0.2);
+   beachball(1,BobbingA[0]+2,4,0.2);
 
    // Beach ball - moving
-   beachball(-7,BobbingB[0],5,0.2);
+   beachball(-7,BobbingB[0]+1.5,5,0.2);
 
 
    // Seaweed
@@ -877,6 +873,12 @@ else
    slab(4,-8,4,0.1,120,10,0);
    slab(-4,-8,-4,10,180,0.1,90);
    glDisable(GL_TEXTURE_2D);
+
+
+   // Draw water surface
+   glBindTexture(GL_TEXTURE_2D,texture[2]);
+   water();
+
 
    //glDisable(GL_TEXTURE_2D);
    glDisable(GL_LIGHTING);
