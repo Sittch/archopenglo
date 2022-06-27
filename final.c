@@ -47,11 +47,11 @@ int axes    =  0;     // Display axes
 int ntex    =  0;     // Cube faces
 int mode    =  1;     // Projection mode
 int move    =  1;     // Move light
-int th      = -270;   // Azimuth of view angle
+int th      = -260;   // Azimuth of view angle
 int ph      =  25;    // Elevation of view angle
 int fov     =  55;    // Field of view (for perspective)
 double asp  =  1;     // Aspect ratio
-double dim  =  10.0;  // Size of world
+double dim  =  12.1;  // Size of world
 int inc     =  10;    // Ball increment
 
 int HasFog = 1;       // Fog toggle

@@ -133,7 +133,7 @@ void		water (void)
   //glLoadIdentity ();
   glPushMatrix();
   glTranslatef (0, 0, -translate_z);
-  glScaled  (40, 10, 40);
+  glScaled  (50, 10, 50);
   // glRotatef (rotate_y, 1, 0, 0);
   // glRotatef (rotate_x, 0, 1, 0);
 
