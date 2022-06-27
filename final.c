@@ -755,6 +755,8 @@ else
 
    float BobbingA[]  = {((sin(bob)/8)+0.1),1.0};
    float BobbingB[]  = {((-sin(bob)/8)+0.1),1.0};
+   float BobbingC[]  = {((cos(bob)/8)+0.1),1.0};
+   float BobbingD[]  = {((-cos(bob)/8)+0.1),1.0};
 
    // Draw scene
 
@@ -793,7 +795,13 @@ else
    // Coconut - floating
    glColor3f(0.295, 0.131, 0.035);
    glBindTexture(GL_TEXTURE_2D,texture[0]);
-   sphere(-3,BobbingA[0],3,0.1);
+   sphere(-3,BobbingC[0],3,0.1);
+
+   // Trunk - floating
+   //glColor3f(0.545, 0.271, 0.075);
+   //glBindTexture(GL_TEXTURE_2D,texture[4]);
+   //palmtrunk(-9,BobbingD[0],2,0.525,1.2,0,0,0);
+   //glDisable(GL_TEXTURE_2D);
 
 
    // Island 2
@@ -858,6 +866,14 @@ else
 
    // Beach ball - moving
    beachball(-7,BobbingB[0],5,0.2);
+
+
+   // Seaweed
+   //glColor3f(0.000, 0.392, 0.000);
+   glBindTexture(GL_TEXTURE_2D,texture[20]);
+   slab(4,-8,4,0.1,120,10,0);
+   slab(-4,-8,-4,10,180,0.1,90);
+   glDisable(GL_TEXTURE_2D);
 
    //glDisable(GL_TEXTURE_2D);
    glDisable(GL_LIGHTING);
@@ -1198,7 +1214,7 @@ int main(int argc,char* argv[])
    texture[17] = LoadTexBMP("underwaterside1.bmp");
    texture[18] = LoadTexBMP("seafloor1.bmp");
    texture[19] = LoadTexBMP("skyside1.bmp");
-   //texture[20] = LoadTexBMP("seaweed1.bmp");
+   texture[20] = LoadTexBMP("seaweed1.bmp");
    //texture[21] = LoadTexBMP("seaweed2.bmp");
    //texture[22] = LoadTexBMP("seaweed3.bmp");
    //texture[23] = LoadTexBMP("seaweed4.bmp");
