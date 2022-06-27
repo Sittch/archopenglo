@@ -1064,9 +1064,9 @@ else
    // Seaweed
    //glColor3f(0.000, 0.392, 0.000);
    glBindTexture(GL_TEXTURE_2D,texture[21]);
-   seaweed(4,-30,4,0.1,2200,10,0);
-   seaweed(-4,-30,-4,10,2200,0.1,90);
-   seaweed(0,-30,0,1,2200,0.1,270);
+   seaweed(BobbingC[0]-1,-30,BobbingC[0]+1,0.1,2200,1,0);
+   seaweed(BobbingC[0]-3,-30,BobbingD[0]+2,0.1,2200,1,90);
+   seaweed(BobbingD[0],-30,BobbingA[0],1,2200,0.1,270);
    glDisable(GL_TEXTURE_2D);
 
 
