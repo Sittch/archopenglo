@@ -766,7 +766,7 @@ else
    // Draw ocean
    ocean(3.5*dim);
 
-
+   glBindTexture(GL_TEXTURE_2D,texture[2]);
    water();
 
 
@@ -1197,33 +1197,33 @@ int main(int argc,char* argv[])
    glutIdleFunc(idle);
 
    //  Load texture
-   texture[0] = LoadTexBMP("coconut1.bmp");
-   texture[1] = LoadTexBMP("ocean1.bmp");
-   texture[2] = LoadTexBMP("ocean2.bmp");
-   texture[3] = LoadTexBMP("palmleaf1.bmp");
-   texture[4] = LoadTexBMP("palmtrunk1.bmp");
-   texture[5] = LoadTexBMP("rock1.bmp");
-   texture[6] = LoadTexBMP("sand1.bmp");
-   texture[7] = LoadTexBMP("sand2.bmp");
-   texture[8] = LoadTexBMP("sand3.bmp");
-   texture[9] = LoadTexBMP("sun1.bmp");
-   texture[10] = LoadTexBMP("sun2.bmp");
-   texture[11] = LoadTexBMP("moon1.bmp");
-   texture[12] = LoadTexBMP("moon2.bmp");
-   texture[13] = LoadTexBMP("moon3.bmp");
-   texture[14] = LoadTexBMP("sky1.bmp");
-   texture[15] = LoadTexBMP("beachball1.bmp");
-   texture[16] = LoadTexBMP("lighthouse1.bmp");
-   texture[17] = LoadTexBMP("underwaterside1.bmp");
-   texture[18] = LoadTexBMP("seafloor1.bmp");
-   texture[19] = LoadTexBMP("skyside1.bmp");
-   texture[20] = LoadTexBMP("seaweed1.bmp");
-   texture[21] = LoadTexBMP("seaweed2.bmp");
-   texture[22] = LoadTexBMP("seaweed3.bmp");
-   texture[23] = LoadTexBMP("seaweed4.bmp");
-   texture[24] = LoadTexBMP("coloflag1.bmp");
-   texture[25] = LoadTexBMP("coloflag2.bmp");
-   texture[26] = LoadTexBMP("coloflag3.bmp");
+   texture[0] = LoadTexBMP("textures/coconut1.bmp");
+   texture[1] = LoadTexBMP("textures/ocean1.bmp");
+   texture[2] = LoadTexBMP("textures/ocean2.bmp");
+   texture[3] = LoadTexBMP("textures/palmleaf1.bmp");
+   texture[4] = LoadTexBMP("textures/palmtrunk1.bmp");
+   texture[5] = LoadTexBMP("textures/rock1.bmp");
+   texture[6] = LoadTexBMP("textures/sand1.bmp");
+   texture[7] = LoadTexBMP("textures/sand2.bmp");
+   texture[8] = LoadTexBMP("textures/sand3.bmp");
+   texture[9] = LoadTexBMP("textures/sun1.bmp");
+   texture[10] = LoadTexBMP("textures/sun2.bmp");
+   texture[11] = LoadTexBMP("textures/moon1.bmp");
+   texture[12] = LoadTexBMP("textures/moon2.bmp");
+   texture[13] = LoadTexBMP("textures/moon3.bmp");
+   texture[14] = LoadTexBMP("textures/sky1.bmp");
+   texture[15] = LoadTexBMP("textures/beachball1.bmp");
+   texture[16] = LoadTexBMP("textures/lighthouse1.bmp");
+   texture[17] = LoadTexBMP("textures/underwaterside1.bmp");
+   texture[18] = LoadTexBMP("textures/seafloor1.bmp");
+   texture[19] = LoadTexBMP("textures/skyside1.bmp");
+   texture[20] = LoadTexBMP("textures/seaweed1.bmp");
+   texture[21] = LoadTexBMP("textures/seaweed2.bmp");
+   texture[22] = LoadTexBMP("textures/seaweed3.bmp");
+   texture[23] = LoadTexBMP("textures/seaweed4.bmp");
+   texture[24] = LoadTexBMP("textures/coloflag1.bmp");
+   texture[25] = LoadTexBMP("textures/coloflag2.bmp");
+   texture[26] = LoadTexBMP("textures/coloflag3.bmp");
 
    //  Pass control to GLUT so it can interact with the user
    ErrCheck("init");

@@ -1,23 +1,4 @@
-/* ============================================================================
-**
-** Demonstration of water rendering
-** Copyright (C) 2005  Julien Guertault
-**
-** This program is free software; you can redistribute it and/or
-** modify it under the terms of the GNU General Public License
-** as published by the Free Software Foundation; either version 2
-** of the License, or (at your option) any later version.
-**
-** This program is distributed in the hope that it will be useful,
-** but WITHOUT ANY WARRANTY; without even the implied warranty of
-** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-** GNU General Public License for more details.
-**
-** You should have received a copy of the GNU General Public License
-** along with this program; if not, write to the Free Software
-** Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
-**
-** ========================================================================= */
+// Adapted from Paul Hoffman
 
 #include <GL/glut.h>
 #include <math.h>
@@ -152,7 +133,7 @@ void		water (void)
   //glLoadIdentity ();
   glPushMatrix();
   // glTranslatef (0, 0, -translate_z);
-  glScaled  (20, 10, 20);
+  glScaled  (30, 10, 30);
   // glRotatef (rotate_y, 1, 0, 0);
   // glRotatef (rotate_x, 0, 1, 0);
 
@@ -306,7 +287,8 @@ void		water (void)
 
   /* The water */
   glEnable (GL_TEXTURE_2D);
-  glColor3f (1, 1, 1);
+  //glColor3f (1, 1, 1);
+  glColor4f (0.4, 0.804, 0.667, 0.5);
   glEnableClientState (GL_NORMAL_ARRAY);
   glEnableClientState (GL_VERTEX_ARRAY);
   glNormalPointer (GL_FLOAT, 0, normal);
