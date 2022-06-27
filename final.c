@@ -39,7 +39,7 @@ int specular  =   0;       // Specular intensity (%)
 int shininess =   0;       // Shininess (power of two)
 float shiny   =   1;       // Shininess (value)
 int zh        =  90;       // Light azimuth
-float ylight  = 7.8;       // Elevation of light
+float ylight  = 9.8;       // Elevation of light
 unsigned int texture[27];     // Texture names
 
 int num     =  1;     // Ocean polygons
@@ -145,6 +145,7 @@ static void Sky(double D)
 {
    //  Textured white box dimension (-D,+D)
    glPushMatrix();
+   glTranslatef(0,1.8,0);
    glScaled(D,D,D);
    glEnable(GL_TEXTURE_2D);
    //glColor3f(1,1,1);
@@ -176,7 +177,7 @@ static void Sky(double D)
 
    //  Top
    glBindTexture(GL_TEXTURE_2D,texture[14]);
-   glColor3f(1,1,1);
+   glColor3f(0.529,0.808,0.980);
    glBegin(GL_QUADS);
    glTexCoord2f(0.0,0); glVertex3f(+1,+1,-1);
    glTexCoord2f(0.5,0); glVertex3f(+1,+1,+1);
@@ -206,6 +207,7 @@ static void ocean(double D)
 {
    //  Textured white box dimension (-D,+D)
    glPushMatrix();
+   glTranslatef(0,1.8,0);
    glScaled(D,D,D);
    glEnable(GL_TEXTURE_2D);
    //glColor3f(1,1,1);
@@ -284,6 +286,73 @@ static void slab(double x,double y,double z,
    glBindTexture(GL_TEXTURE_2D,texture[3]);
    glColor3f(0.000, 0.392, 0.000);
    //  Palm Leaf
+   glBegin(GL_QUADS);
+   //  Front
+   glNormal3f(0,0,0.25);
+   glTexCoord2f(0.0,0.0); glVertex3f(-0.5,-0.01, 0.25);
+   glTexCoord2f(1.0,0.0); glVertex3f(+0.5,-0.01, 0.25);
+   glTexCoord2f(1.0,0.0); glVertex3f(+0.5,+0.01, 0.25);
+   glTexCoord2f(0.0,0.0); glVertex3f(-0.5,+0.01, 0.25);
+   //  Back
+   glNormal3f(0,0,-0.25);
+   glTexCoord2f(0.0,0.0); glVertex3f(+0.5,-0.01,-0.25);
+   glTexCoord2f(1.0,0.0); glVertex3f(-0.5,-0.01,-0.25);
+   glTexCoord2f(1.0,0.0); glVertex3f(-0.5,+0.01,-0.25);
+   glTexCoord2f(0.0,0.0); glVertex3f(+0.5,+0.01,-0.25);
+   //  Right
+   glNormal3f(+0.5,0,0);
+   glTexCoord2f(0.0,0.0); glVertex3f(+0.5,-0.01,+0.25);
+   glTexCoord2f(1.0,0.0); glVertex3f(+0.5,-0.01,-0.25);
+   glTexCoord2f(1.0,0.0); glVertex3f(+0.5,+0.01,-0.25);
+   glTexCoord2f(0.0,0.0); glVertex3f(+0.5,+0.01,+0.25);
+   //  Left
+   glNormal3f(-0.5,0,0);
+   glTexCoord2f(0.0,0.0); glVertex3f(-0.5,-0.01,-0.25);
+   glTexCoord2f(1.0,0.0); glVertex3f(-0.5,-0.01,+0.25);
+   glTexCoord2f(1.0,0.0); glVertex3f(-0.5,+0.01,+0.25);
+   glTexCoord2f(0.0,0.0); glVertex3f(-0.5,+0.01,-0.25);
+   //  Top
+   glNormal3f(0,+0.01,0);
+   glTexCoord2f(0.0,0.0); glVertex3f(-0.5,+0.01,+0.25);
+   glTexCoord2f(1.0,0.0); glVertex3f(+0.5,+0.01,+0.25);
+   glTexCoord2f(1.0,0.0); glVertex3f(+0.5,+0.01,-0.25);
+   glTexCoord2f(0.0,0.0); glVertex3f(-0.5,+0.01,-0.25);
+   //  Bottom
+   glNormal3f(0,-0.01,0);
+   glTexCoord2f(0.0,0.0); glVertex3f(-0.5,-0.01,-0.25);
+   glTexCoord2f(1.0,0.0); glVertex3f(+0.5,-0.01,-0.25);
+   glTexCoord2f(1.0,0.0); glVertex3f(+0.5,-0.01,+0.25);
+   glTexCoord2f(0.0,0.0); glVertex3f(-0.5,-0.01,+0.25);
+   //  End
+   glEnd();
+   //  Undo transformations
+   glPopMatrix();
+   glDisable(GL_TEXTURE_2D);
+}
+
+// Draw a slab (adapted from examples)
+static void seaweed(double x,double y,double z,
+                 double dx,double dy,double dz,
+                 double th)
+{
+   //  Set specular color to white
+   float white[] = {1,1,1,1};
+   float black[] = {0,0,0,1};
+   glMaterialf(GL_FRONT_AND_BACK,GL_SHININESS,shiny);
+   glMaterialfv(GL_FRONT_AND_BACK,GL_SPECULAR,white);
+   glMaterialfv(GL_FRONT_AND_BACK,GL_EMISSION,black);
+   //  Save transformation
+   glPushMatrix();
+   //  Offset
+   glTranslated(x,y,z);
+   glRotated(th,0,1,0);
+   glScaled(dx,dy,dz);
+   //  Enable textures
+   glEnable(GL_TEXTURE_2D);
+   glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,GL_MODULATE);
+   //glBindTexture(GL_TEXTURE_2D,texture[3]);
+   //glColor3f(0.000, 0.392, 0.000);
+   //  Seaweed
    glBegin(GL_QUADS);
    //  Front
    glNormal3f(0,0,0.25);
@@ -609,6 +678,41 @@ static void hemisphere(double x,double y,double z,double r,double rx,double ry,d
    glMaterialfv(GL_FRONT,GL_SPECULAR,yellow);
    glMaterialfv(GL_FRONT,GL_EMISSION,Emission);
    glTexCoord2f(r,r);
+
+   //    // Upper Part
+   // glBegin(GL_TRIANGLE_FAN);
+   // glTexCoord2f(0.5,0.5); 
+   // glVertex3f(0,1,0);
+   // glNormal3f(0,1,0);
+   // for (th=0;th<=360;th+=2*inc)
+   // {
+   //    glTexCoord2f(2*Sin(th)+0.5,2*Cos(th)+0.5);
+   //    glVertex3d(Sin(th),1,Cos(th));
+   // }
+   // glEnd();
+
+   // // Side Part
+   // glBegin(GL_QUAD_STRIP); 
+   // for (th=0;th<=360;th+=inc)
+   // {
+   //    double u = th/360.0;
+   //    glNormal3f(Cos(th),0,Sin(th));
+   //    glTexCoord2d(4*u,1.0); glVertex3d(Cos(th),1,Sin(th));
+   //    glTexCoord2d(4*u,0.0); glVertex3d(Cos(th),0,Sin(th));
+   //  }
+   // glEnd();
+
+   // // Base Part
+   // glBegin(GL_TRIANGLE_FAN);
+   // glTexCoord2f(0.5,0.5); 
+   // glVertex3f(0,0,0);
+   // glNormal3f(0,-1,0);
+   // for (th=0;th<=360;th+=2*inc)
+   // {
+   //    glTexCoord2f(2*Sin(th)+0.5,2*Cos(th)+0.5);
+   //    glVertex3d(Sin(th),0,Cos(th));
+   // }
+   // glEnd();
    //  Bands of latitude
    for (ph=-90;ph<90;ph+=inc)
    {
@@ -624,6 +728,80 @@ static void hemisphere(double x,double y,double z,double r,double rx,double ry,d
    glDisable(GL_TEXTURE_2D);
    glPopMatrix();
 }
+
+
+/*
+ *  Draw a cone with texture (adapted from Paul Hoffman)
+ *     at (x,y,z)
+ *     size (r(radius), h(height))
+ *     rotate (rx, ry, rz)
+ */
+void cone(double x,double y,double z,
+          double r,double h, 
+          double rx, double ry, double rz,int temp)
+{
+
+   int DEF_D = 5;
+   //  Set specular color to white
+   float white[] = {1,1,1,1};
+   float black[] = {0,0,0,1};
+   // float Emission[]  = {0.0,0.0,0.01*emission,1.0};
+   glMaterialf(GL_FRONT_AND_BACK,GL_SHININESS,shiny);
+   glMaterialfv(GL_FRONT_AND_BACK,GL_SPECULAR,white);
+   glMaterialfv(GL_FRONT_AND_BACK,GL_EMISSION,black);
+   // glMaterialfv(GL_FRONT_AND_BACK,GL_EMISSION,Emission);
+
+   //  Save transformation
+   glPushMatrix();
+   //  Offset, scale and rotate
+   glTranslated(x,y,z);
+   glRotated(rx,1,0,0);
+   glRotated(ry,0,1,0);
+   glRotated(rz,0,0,1);
+   glScaled(r,h,r);
+
+   //  Enable textures
+   glEnable(GL_TEXTURE_2D);
+   glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,GL_MODULATE);
+   glColor3f(1.0, 1.0, 1.0); //Set color to white
+   //glBindTexture(GL_TEXTURE_2D,texture[temp]);
+    /* sides */
+    glBegin(GL_TRIANGLES);
+    
+    for (int k=0;k<=360;k+=DEF_D){
+      glVertex3f(0,0,2);
+      // glTexCoord2f(0,0);
+      glTexCoord2f(2*Sin(k)+0.5,2*Cos(k)+0.5);
+      glVertex3f(Cos(k),Sin(k),0);
+      glTexCoord2f(2*Sin(k)+0.5,2*Cos(k)+0.5);
+      glNormal3f(Sin(k+DEF_D)-Sin(k),Cos(k)-Cos(k+DEF_D),Sin(DEF_D));
+      // glTexCoord2f(0,1);
+      glTexCoord2f(2*Sin(k)+0.5,2*Cos(k)+0.5);
+      glVertex3f(Cos(k+DEF_D),Sin(k+DEF_D),0);
+    }
+    glEnd();
+
+    /* bottom circle */ 
+    /* rotate back */
+    glRotated(90,1,0,0);
+    glBegin(GL_TRIANGLES);
+    glNormal3f(0,-1,0);
+    for (int k=0;k<=360;k+=DEF_D) {
+      // glColor3f(1.0,0.0,0.0);
+      glVertex3f(0,0,0);
+      // glColor3f(1.0,0.0,1.0);
+      glVertex3f(Cos(k),0,Sin(k));
+      glTexCoord2f(2*Sin(th)+0.5,th/36); 
+      // glColor3f(1.0,1.0,0.0);
+      glVertex3f(Cos(k+DEF_D),0,Sin(k+DEF_D));
+    }
+    glEnd();
+   
+   glDisable(GL_TEXTURE_2D);
+   //  Undo transformations and textures
+   glPopMatrix();
+}
+
 
 /*
  *  Draw a ball (from examples)
@@ -771,10 +949,11 @@ else
    glColor3f(0.804,0.522,0.247);
    glBindTexture(GL_TEXTURE_2D,texture[8]);
    hemisphere(0, 2, 0, 2, 0, 0, 90);
-   glColor3f(0.804,0.522,0.247);
-   glBindTexture(GL_TEXTURE_2D,texture[8]);
-   palmtrunk(0,1.9,0,2,0,0,0,0);
-   //glDisable(GL_TEXTURE_2D);
+   glDisable(GL_TEXTURE_2D);
+   // glColor3f(0.804,0.522,0.247);
+   // glBindTexture(GL_TEXTURE_2D,texture[8]);
+   // palmtrunk(0,1.9,0,2.1,0,0,0,0);
+   // glDisable(GL_TEXTURE_2D);
 
    // Palm trunk
    glColor3f(0.545, 0.271, 0.075);
@@ -836,14 +1015,26 @@ else
    // Rocky beach
    glColor3f(0.4,0.4,0.4);
    glBindTexture(GL_TEXTURE_2D,texture[5]);
-   hemisphere(-4, 2, -4, 2, 0, 0, 90);
+   hemisphere(-4, 2, 9, 2, 0, 0, 90);
    //glDisable(GL_TEXTURE_2D);
 
-   // Palm trunk
+   // Lighthouse
    glColor3f(0.545, 0.271, 0.075);
    glBindTexture(GL_TEXTURE_2D,texture[16]);
-   palmtrunk(-4,3,-4,0.125,2.2,0,0,0);
+   palmtrunk(-4,3,9,0.425,2.2,0,0,0);
    glDisable(GL_TEXTURE_2D);
+
+
+   glColor3f(0, 0, 0);
+   glBindTexture(GL_TEXTURE_2D,texture[5]);
+   palmtrunk(-4,5.2,9,0.525,0.05,0,0,0);
+   glDisable(GL_TEXTURE_2D);
+
+   glColor3f(0.863,0.078,0.235);
+   glBindTexture(GL_TEXTURE_2D,texture[5]);
+   cone(-4,5.7,9,0.525,0.525,270,0,0,0);
+   glDisable(GL_TEXTURE_2D);
+
 
    // Palm leaves
    //glColor3f(0.000, 0.392, 0.000);
@@ -855,7 +1046,7 @@ else
    // Coconut
    glColor3f(0.295, 0.131, 0.035);
    //glBindTexture(GL_TEXTURE_2D,texture[0]);
-   icosasphere(-4.85,3.65,-4.85,0.1);
+   icosasphere(-0.85,3.65,-0.85,0.1);
 
 
    // Moon
@@ -873,8 +1064,9 @@ else
    // Seaweed
    //glColor3f(0.000, 0.392, 0.000);
    glBindTexture(GL_TEXTURE_2D,texture[21]);
-   slab(4,-8,4,0.1,120,10,0);
-   slab(-4,-8,-4,10,180,0.1,90);
+   seaweed(4,-30,4,0.1,2200,10,0);
+   seaweed(-4,-30,-4,10,2200,0.1,90);
+   seaweed(0,-30,0,1,2200,0.1,270);
    glDisable(GL_TEXTURE_2D);
 
 
