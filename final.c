@@ -57,7 +57,7 @@ int inc     =  10;    // Ball increment
 int HasFog = 1;       // Fog toggle
 int FogMode = 2;      // Toggle fog mode
 int FogDensity = 1;   // Density of fog
-int bob = 8;        //Bobbing
+int bob = 80;        //Bobbing
 
 //(adapted from examples with suggestions from Paul Hoffman)
 // FPS
@@ -770,76 +770,79 @@ else
    // Sandy beach
    glColor3f(0.804,0.522,0.247);
    glBindTexture(GL_TEXTURE_2D,texture[8]);
-   hemisphere(0, 0, 0, 2, 0, 0, 90);
+   hemisphere(0, 2, 0, 2, 0, 0, 90);
+   glColor3f(0.804,0.522,0.247);
+   glBindTexture(GL_TEXTURE_2D,texture[8]);
+   palmtrunk(0,1.9,0,2,0,0,0,0);
    //glDisable(GL_TEXTURE_2D);
 
    // Palm trunk
    glColor3f(0.545, 0.271, 0.075);
    glBindTexture(GL_TEXTURE_2D,texture[4]);
-   palmtrunk(0,1,0,0.125,2.2,0,0,0);
+   palmtrunk(0,3,0,0.125,2.2,0,0,0);
    glDisable(GL_TEXTURE_2D);
 
    // Palm leaves
    //glColor3f(0.000, 0.392, 0.000);
    glBindTexture(GL_TEXTURE_2D,texture[3]);
-   slab(0,3.25,0,1,3,1,0);
-   slab(0,3.25,0,1,3,1,90);
+   slab(0,5.25,0,1,3,1,0);
+   slab(0,5.25,0,1,3,1,90);
    glDisable(GL_TEXTURE_2D);
 
    // Coconut
    glColor3f(0.295, 0.131, 0.035);
    //glBindTexture(GL_TEXTURE_2D,texture[0]);
-   icosasphere(0.85,1.65,0.85,0.1);
+   icosasphere(0.85,3.65,0.85,0.1);
 
    // Coconut - floating
    glColor3f(0.295, 0.131, 0.035);
    glBindTexture(GL_TEXTURE_2D,texture[0]);
-   sphere(-3,BobbingC[0],3,0.1);
+   sphere(-3,(BobbingC[0]/2)+1.9,3,0.1);
 
    // Trunk - floating
-   //glColor3f(0.545, 0.271, 0.075);
-   //glBindTexture(GL_TEXTURE_2D,texture[4]);
-   //palmtrunk(-9,BobbingD[0],2,0.525,1.2,0,0,0);
-   //glDisable(GL_TEXTURE_2D);
+   glColor3f(0.545, 0.271, 0.075);
+   glBindTexture(GL_TEXTURE_2D,texture[4]);
+   palmtrunk(-9,(BobbingD[0]/2)+1.9,2,0.125,0.6,0,0,90);
+   glDisable(GL_TEXTURE_2D);
 
 
    // Island 2
    // Sandy beach
    glColor3f(0.804,0.522,0.247);
    glBindTexture(GL_TEXTURE_2D,texture[8]);
-   hemisphere(4, 0, 4, 2, 0, 0, 90);
+   hemisphere(4, 2, 4, 2, 0, 0, 90);
    //glDisable(GL_TEXTURE_2D);
 
    // Palm trunk
    glColor3f(0.545, 0.271, 0.075);
    glBindTexture(GL_TEXTURE_2D,texture[4]);
-   palmtrunk(4,1,4,0.125,2.2,0,0,0);
+   palmtrunk(4,3,4,0.125,2.2,0,0,0);
    glDisable(GL_TEXTURE_2D);
 
    // Palm leaves
    //glColor3f(0.000, 0.392, 0.000);
    glBindTexture(GL_TEXTURE_2D,texture[3]);
-   slab(4,3.25,4,1,3,1,0);
-   slab(4,3.25,4,1,3,1,90);
+   slab(4,5.25,4,1,3,1,0);
+   slab(4,5.25,4,1,3,1,90);
    glDisable(GL_TEXTURE_2D);
 
    // Coconut
    glColor3f(0.295, 0.131, 0.035);
    //glBindTexture(GL_TEXTURE_2D,texture[0]);
-   icosasphere(4.85,1.65,4.85,0.1);
+   icosasphere(4.85,3.65,4.85,0.1);
 
 
    // Island 3
    // Rocky beach
    glColor3f(0.4,0.4,0.4);
    glBindTexture(GL_TEXTURE_2D,texture[5]);
-   hemisphere(-4, 3, -4, 2, 0, 0, 90);
+   hemisphere(-4, 2, -4, 2, 0, 0, 90);
    //glDisable(GL_TEXTURE_2D);
 
    // Palm trunk
    glColor3f(0.545, 0.271, 0.075);
    glBindTexture(GL_TEXTURE_2D,texture[16]);
-   palmtrunk(-4,4,-4,0.125,2.2,0,0,0);
+   palmtrunk(-4,3,-4,0.125,2.2,0,0,0);
    glDisable(GL_TEXTURE_2D);
 
    // Palm leaves
@@ -852,19 +855,19 @@ else
    // Coconut
    glColor3f(0.295, 0.131, 0.035);
    //glBindTexture(GL_TEXTURE_2D,texture[0]);
-   icosasphere(-4.85,1.65,-4.85,0.1);
+   icosasphere(-4.85,3.65,-4.85,0.1);
 
 
    // Moon
    //glColor3f(0.855, 0.647, 0.125);
    glColor3f(0.5, 0.7, 0.5);
-   moon(2,8,2,1);
+   moon(2,10,2,1);
 
    // Beach ball
    beachball(1,BobbingA[0]+2,4,0.2);
 
    // Beach ball - moving
-   beachball(-7,BobbingB[0]+1.5,5,0.2);
+   beachball(-7,BobbingB[0]+2,5,0.2);
 
 
    // Seaweed
@@ -931,8 +934,12 @@ void idle()
    zh = fmod(90*t,360.0);
 
    // Buoyancy
-   double waves = glutGet(GLUT_ELAPSED_TIME)/1000.0;
-   bob = fmod(9*waves,360.0);
+   //double waves = glutGet(GLUT_ELAPSED_TIME)/100.0;
+   bob = fmod(3*t,360.0);
+
+   // Movement (adapted from Paul Hoffman)
+   // float step = GLUT_ELAPSED_TIME/1000;
+   // IceBerg(0+step*0.01,0,0.3+step*0.01,2.2,2.2,2.2,90,180,90);
    
     
    // static float count = 0.0;
