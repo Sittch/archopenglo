@@ -184,15 +184,15 @@ static void Sky(double D)
    glTexCoord2f(0.0,1); glVertex3f(-1,+1,-1);
    glEnd();
 
-   // Bottom
-   glBindTexture(GL_TEXTURE_2D,texture[2]);
-   glColor4f(1.0,1.0,1.0,0.5);
-   glBegin(GL_QUADS);
-   glTexCoord2f(1.0,1); glVertex3f(-1,0,+1);
-   glTexCoord2f(0.5,1); glVertex3f(+1,0,+1);
-   glTexCoord2f(0.5,0); glVertex3f(+1,0,-1);
-   glTexCoord2f(1.0,0); glVertex3f(-1,0,-1);
-   glEnd();
+   // // Bottom
+   // glBindTexture(GL_TEXTURE_2D,texture[2]);
+   // glColor4f(1.0,1.0,1.0,0.5);
+   // glBegin(GL_QUADS);
+   // glTexCoord2f(1.0,1); glVertex3f(-1,0,+1);
+   // glTexCoord2f(0.5,1); glVertex3f(+1,0,+1);
+   // glTexCoord2f(0.5,0); glVertex3f(+1,0,-1);
+   // glTexCoord2f(1.0,0); glVertex3f(-1,0,-1);
+   // glEnd();
 
    //  Undo
    glDisable(GL_TEXTURE_2D);
@@ -245,15 +245,15 @@ static void ocean(double D)
    glTexCoord2f(0.0,1); glVertex3f(-1,-1,-1);
    glEnd();
 
-   // Top
-   glBindTexture(GL_TEXTURE_2D,texture[2]);
-   glColor4f(1.0,1.0,1.0,0.5);
-   glBegin(GL_QUADS);
-   glTexCoord2f(1.0,1); glVertex3f(-1,0,+1);
-   glTexCoord2f(0.5,1); glVertex3f(+1,0,+1);
-   glTexCoord2f(0.5,0); glVertex3f(+1,0,-1);
-   glTexCoord2f(1.0,0); glVertex3f(-1,0,-1);
-   glEnd();
+   // // Top
+   // glBindTexture(GL_TEXTURE_2D,texture[2]);
+   // glColor4f(1.0,1.0,1.0,0.5);
+   // glBegin(GL_QUADS);
+   // glTexCoord2f(1.0,1); glVertex3f(-1,0,+1);
+   // glTexCoord2f(0.5,1); glVertex3f(+1,0,+1);
+   // glTexCoord2f(0.5,0); glVertex3f(+1,0,-1);
+   // glTexCoord2f(1.0,0); glVertex3f(-1,0,-1);
+   // glEnd();
 
    //  Undo
    glDisable(GL_TEXTURE_2D);
@@ -767,6 +767,9 @@ else
    ocean(3.5*dim);
 
 
+   water();
+
+
    // Island 1
    // Sandy beach
    glColor3f(0.804,0.522,0.247);
@@ -870,7 +873,7 @@ else
 
    // Seaweed
    //glColor3f(0.000, 0.392, 0.000);
-   glBindTexture(GL_TEXTURE_2D,texture[20]);
+   glBindTexture(GL_TEXTURE_2D,texture[21]);
    slab(4,-8,4,0.1,120,10,0);
    slab(-4,-8,-4,10,180,0.1,90);
    glDisable(GL_TEXTURE_2D);
@@ -1215,11 +1218,11 @@ int main(int argc,char* argv[])
    texture[18] = LoadTexBMP("seafloor1.bmp");
    texture[19] = LoadTexBMP("skyside1.bmp");
    texture[20] = LoadTexBMP("seaweed1.bmp");
-   //texture[21] = LoadTexBMP("seaweed2.bmp");
-   //texture[22] = LoadTexBMP("seaweed3.bmp");
-   //texture[23] = LoadTexBMP("seaweed4.bmp");
-   //texture[24] = LoadTexBMP("coloflag1.bmp");
-   //texture[25] = LoadTexBMP("coloflag2.bmp");
+   texture[21] = LoadTexBMP("seaweed2.bmp");
+   texture[22] = LoadTexBMP("seaweed3.bmp");
+   texture[23] = LoadTexBMP("seaweed4.bmp");
+   texture[24] = LoadTexBMP("coloflag1.bmp");
+   texture[25] = LoadTexBMP("coloflag2.bmp");
    texture[26] = LoadTexBMP("coloflag3.bmp");
 
    //  Pass control to GLUT so it can interact with the user

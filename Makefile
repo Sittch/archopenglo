@@ -18,19 +18,21 @@ LIBS=-framework GLUT -framework OpenGL
 #  Linux/Unix/Solaris
 else
 CFLG=-O3 -Wall
-LIBS=-lglut -lGLU -lGL -lm
+LIBS=-lglut -lGLU -lGL -lm -ljpeg -L/usr/lib -L/usr/X11R6/lib -lX11
 endif
 #  OSX/Linux/Unix/Solaris
 CLEAN=rm -f $(EXE) *.o *.a
 endif
 
 # Dependencies
-final.o: final.c CSCIx229.h
+final.o: noise.o water.o final.c CSCIx229.h
 fatal.o: fatal.c CSCIx229.h
 errcheck.o: errcheck.c CSCIx229.h
 print.o: print.c CSCIx229.h
 loadtexbmp.o: loadtexbmp.c CSCIx229.h
 loadobj.o: loadobj.c CSCIx229.h
+noise.o: noise.c
+water.o: water.c
 
 #  Create archive
 CSCIx229.a:fatal.o errcheck.o print.o loadtexbmp.o loadobj.o
@@ -43,7 +45,7 @@ CSCIx229.a:fatal.o errcheck.o print.o loadtexbmp.o loadobj.o
 	g++ -c $(CFLG)  $<
 
 #  Link
-final:final.o   CSCIx229.a
+final:noise.o water.o final.o   CSCIx229.a
 	gcc $(CFLG) -o $@ $^  $(LIBS)
 
 #  Clean
