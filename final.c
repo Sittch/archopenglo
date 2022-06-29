@@ -40,7 +40,8 @@ int shininess =   0;       // Shininess (power of two)
 float shiny   =   1;       // Shininess (value)
 int zh        =  90;       // Light azimuth
 float ylight  = 9.8;       // Elevation of light
-unsigned int texture[27];     // Texture names
+unsigned int texture[28];     // Texture names
+int obj;          //  Object display list
 
 int num     =  1;     // Ocean polygons
 int axes    =  0;     // Display axes
@@ -73,16 +74,6 @@ double Ez = 1;
 double Fx = 0;
 double Fy = 0;
 double Fz = 0;
-
-// ints from internet
-int horizon_x1, horizon_y1, horizon_x2, horizon_y2, horizon_x3, horizon_y3, horizon_x4, horizon_y4;
-int sea_x1, sea_y1, sea_x2, sea_y2, sea_x3, sea_y3, sea_x4, sea_y4;
-int beach_x1, beach_y1, beach_x2, beach_y2, beach_x3, beach_y3, beach_x4, beach_y4;
-int green1_x1, green1_y1, green1_x2, green1_y2, green1_x3, green1_y3, green1_x4, green1_y4;
-int green2_x1, green2_y1, green2_x2, green2_y2, green2_x3, green2_y3, green2_x4, green2_y4;
-int road_x1, road_y1, road_x2, road_y2, road_x3, road_y3, road_x4, road_y4;
-int p1_x, p1_y, p2_x, p2_y, p3_x, p3_y, p4_x, p4_y;
-int beacon_x1, beacon_y1, beacon_x2, beacon_y2, beacon_x3, beacon_y3, beacon_x4, beacon_y4;
 
 //  Sine and cosine in degrees
 #define Sin(th) sin(3.14159265/180*(th))
@@ -209,192 +200,6 @@ static void Sky(double D)
    glDisable(GL_TEXTURE_2D);
    glPopMatrix();
 }
-
-// Drawing (adapted from internet)
-void draw_pixel(int x, int y, float r, float g, float b)
-{
-
-    glColor3f(r, g, b);
-    glBegin(GL_POINTS);
-    glVertex3f(x, y, 0);
-    glEnd();
-}
-void symmetricPixels(int x, int y, int xc, int yc, float r, float g, float b)
-{
-    draw_pixel(xc + x, yc + y, r, g, b);
-    draw_pixel(xc - x, yc + y, r, g, b);
-    draw_pixel(xc + x, yc - y, r, g, b);
-    draw_pixel(xc - x, yc - y, r, g, b);
-}
-
-// Ellipse function (adapted from internet)
-void EllipseX(int a, int b, int xc, int yc, float r, float g, float bc)
-{
-    int aSq, bSq, twoASq, twoBSq, d, dx, dy, x, y;
-    aSq = a * a;
-    bSq = b * b;
-    twoASq = 2 * aSq;
-    twoBSq = 2 * bSq;
-    d = bSq - b * aSq + aSq / 4;
-    dx = 0;
-    dy = twoASq * b;
-    x = 0;
-    y = b;
-    symmetricPixels(x, y, xc, yc, r, g, bc);
-    while (dx < dy)
-    {
-        x++;
-        dx += twoBSq;
-        if (d >= 0)
-        {
-            y--;
-            dy -= twoASq;
-        }
-        if (d < 0)
-            d += bSq + dx;
-        else
-            d += bSq + dx - dy;
-        symmetricPixels(x, y, xc, yc, r, g, bc);
-    }
-    d = (int)(bSq * (x + 0.5) * (x + 0.5) + aSq * (y - 1) * (y - 1) -
-              aSq * bSq);
-    while (y > 0)
-    {
-        y--;
-        dy -= twoASq;
-        if (d <= 0)
-        {
-            x++;
-            dx += twoBSq;
-        }
-        if (d > 0)
-            d += aSq - dy;
-        else
-            d += aSq - dy + dx;
-        symmetricPixels(x, y, xc, yc, r, g, bc);
-    }
-    glFlush();
-}
-
-// Edge detection (adapted from internet)
-void edgedetect(GLfloat x1, GLfloat y1, GLfloat x2, GLfloat y2, int *le, int *re)
-{
-    float mx, x, temp;
-    int i;
-    if ((y2 - y1) < 0) // if second point is below first point interchange them
-    {
-        temp = x1;
-        x1 = x2;
-        x2 = temp;
-        temp = y1;
-        y1 = y2;
-        y2 = temp;
-    }
-    if ((y2 - y1) != 0) // if denominator is zero we can't find slope
-        mx = (x2 - x1) / (y2 - y1);
-    else
-        mx = x2 - x1; // y2-y1=0 implies line is horizontal
-    x = x1;
-    for (i = y1; i < y2; i++) // starting from x1,y1 add slope mx to x
-    {
-        // and round it to find the next point on the                                        // line. For that particular scan line i
-        if (x < le[i]) // insert the x value into either le or re.
-            le[i] = x; // Initially both le and re will contain same value...
-        if (x > re[i]) // in the next time for the other edge
-            re[i] = x; // either le or re will change
-        x += mx;       // NOTE: le and re are integer arrays and x
-    }                  // is float so automatic type conversion.
-}
-
-// Scanfill function (adapted from internet)
-void scanfill(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, float r, float g, float b)
-{
-    int le[WIDTH], re[WIDTH];
-    int i, y;
-    for (i = 0; i < WIDTH; i++)
-    {
-        le[i] = WIDTH;
-        re[i] = 0;
-    }
-
-    edgedetect(x1, y1, x2, y2, le, re);
-    edgedetect(x2, y2, x3, y3, le, re);
-    edgedetect(x3, y3, x4, y4, le, re);
-    edgedetect(x4, y4, x1, y1, le, re);
-    for (y = 0; y < HEIGHT; y++)
-    {
-        if (le[y] <= re[y])
-        {
-            for (i = le[y] + 1; i < re[y]; i++)
-            {
-                draw_pixel(i, y, r, g, b);
-            }
-        }
-    }
-}
-
-// Line drawing (adapted from internet)
-void draw_line(int x1, int x2, int y1, int y2, float r, float g, float b)
-{
-    int dx, dy, i, e;
-    int incx, incy, inc1, inc2;
-    int x, y;
-
-    dx = x2 - x1;
-    dy = y2 - y1;
-
-    if (dx < 0)
-        dx = -dx;
-    if (dy < 0)
-        dy = -dy;
-    incx = 1;
-    if (x2 < x1)
-        incx = -1;
-    incy = 1;
-    if (y2 < y1)
-        incy = -1;
-    x = x1;
-    y = y1;
-    if (dx > dy)
-    {
-        draw_pixel(x, y, r, g, b);
-        e = 2 * dy - dx;
-        inc1 = 2 * (dy - dx);
-        inc2 = 2 * dy;
-        for (i = 0; i < dx; i++)
-        {
-            if (e >= 0)
-            {
-                y += incy;
-                e += inc1;
-            }
-            else
-                e += inc2;
-            x += incx;
-            draw_pixel(x, y, r, g, b);
-        }
-    }
-    else
-    {
-        draw_pixel(x, y, r, g, b);
-        e = 2 * dx - dy;
-        inc1 = 2 * (dx - dy);
-        inc2 = 2 * dx;
-        for (i = 0; i < dy; i++)
-        {
-            if (e >= 0)
-            {
-                x += incx;
-                e += inc1;
-            }
-            else
-                e += inc2;
-            y += incy;
-            draw_pixel(x, y, r, g, b);
-        }
-    }
-}
-
 
 /* 
  *  Draw ocean box (adapted from examples)
@@ -925,102 +730,6 @@ static void hemisphere(double x,double y,double z,double r,double rx,double ry,d
    glPopMatrix();
 }
 
-// Draw a boat (adapted from online)
-void draw_boat(int boat_x, int boat_y)
-{
-    int b2_x, b2_y, b3_x, b3_y, b4_x, b4_y, b5_x, b5_y, b6_x, b6_y, b7_x, b7_y, b8_x, b8_y;
-    int f1_x, f1_y, f2_x, f2_y, f3_x, f3_y, f4_x, f4_y, f5_x, f5_y, f6_x, f6_y, f7_x, f7_y;
-    int p1_x, p1_y, p2_x, p2_y, p3_x, p3_y, p4_x, p4_y, p5_x, p5_y, p6_x, p6_y, p7_x, p7_y, p8_x, p8_y;
-    int c1_x, c1_y, c2_x, c2_y, c3_x, c3_y;
-
-    b2_x = boat_x + 120;
-    b3_x = boat_x + 100;
-    b4_x = boat_x + 20;
-    b2_y = boat_y;
-    b3_y = boat_y - 40;
-    b4_y = boat_y - 40;
-
-    b5_x = b4_x;
-    b5_y = boat_y + 10;
-    b6_x = b3_x;
-    b6_y = boat_y + 10;
-    b7_x = b3_x;
-    b7_y = boat_y - 10;
-    b8_x = b4_x;
-    b8_y = boat_y - 10;
-
-    f1_x = b5_x;
-    f1_y = (b5_y + b8_y) / 2 + 10 - 5 + 10;
-    f2_x = b6_x;
-    f2_y = f1_y;
-    f3_x = b6_x;
-    f3_y = (b6_y + b7_y) / 2 - 5;
-    f4_x = b5_x;
-    f4_y = f3_y;
-
-    f5_x = f1_x + 5;
-    f5_y = f1_y + 5;
-    f6_x = f2_x + 5;
-    f6_y = f2_y + 5;
-    f7_x = f3_x + 5;
-    f7_y = f3_y + 5;
-
-    p1_x = f5_x + 10;
-    p1_y = (f1_y + f5_y) / 2 + 30;
-    p2_x = p1_x + 20;
-    p2_y = p1_y;
-    p3_x = p2_x;
-    p3_y = (f1_y + f5_y) / 2;
-    p4_x = p1_x;
-    p4_y = p3_y;
-
-    p5_x = f2_x - 30;
-    p5_y = (f1_y + f5_y) / 2 + 30;
-    p6_x = p5_x + 20;
-    p6_y = p5_y;
-    p7_x = p6_x;
-    p7_y = (f1_y + f5_y) / 2;
-    p8_x = p5_x;
-    p8_y = p7_y;
-
-    // Sideways Boat
-    scanfill(boat_x, boat_y, b2_x, b2_y, b3_x, b3_y, b4_x, b4_y, 0.0, 0.0, 0.0);
-
-    // Base of boat
-    scanfill(boat_x, boat_y, b5_x, b5_y, b8_x, b8_y, boat_x, boat_y, 0.65, 0.16, 0.16);
-    scanfill(b5_x - 1, b5_y, b6_x, b6_y, b7_x, b7_y, b8_x - 1, b8_y, 0.65, 0.16, 0.16);
-    scanfill(b6_x - 1, b6_y, b2_x, b2_y, b7_x - 1, b7_y, b6_x - 1, b6_y, 0.65, 0.16, 0.16);
-
-    // Level 1 of boat
-    scanfill(f1_x, f1_y, f2_x, f2_y, f3_x, f3_y, f4_x, f4_y, 0.31, 0.31, 0.31);
-    scanfill(f5_x, f5_y, f6_x, f6_y, f2_x, f2_y, f1_x, f1_y, 0.31, 0.31, 0.31);
-    scanfill(f2_x, f2_y, f6_x, f6_y, f7_x, f7_y, f3_x, f3_y, 0.31, 0.31, 0.31);
-
-    //Pillars
-    scanfill(p1_x, p1_y, p2_x, p2_y, p3_x, p3_y, p4_x, p4_y, 0.0, 0.0, 0.0);
-    scanfill(p5_x, p5_y, p6_x, p6_y, p7_x, p7_y, p8_x, p8_y, 0.0, 0.0, 0.0);
-
-    int mid_x = (boat_x + b2_x) / 2;
-    int mid_y = boat_y;
-
-    c1_x = b4_x + 5;
-    c1_y = (b4_y + b8_y) / 2;
-    c2_x = c1_x + 35;
-    c2_y = c1_y;
-    c3_x = c2_x + 35;
-    c3_y = c1_y;
-
-    int i;
-    for (i = 3; i < 8; i++)
-    {
-        EllipseX(i, i, c1_x, c1_y, 1.0, 0.0, 0.0);
-        EllipseX(i, i, c2_x, c2_y, 1.0, 0.0, 0.0);
-        EllipseX(i, i, c3_x, c3_y, 1.0, 0.0, 0.0);
-    }
-
-    EllipseX(60, 10, mid_x, mid_y);
-}
-
 
 /*
  *  Draw a cone with texture (adapted from Paul Hoffman)
@@ -1276,6 +985,8 @@ else
    palmtrunk(-9,(BobbingD[0]/2)+1.9,2,0.125,0.6,0,0,90);
    glDisable(GL_TEXTURE_2D);
 
+   // Fish object
+   //glCallList(obj);
 
    // Island 2
    // Sandy beach
@@ -1318,17 +1029,14 @@ else
 
 
    glColor3f(0, 0, 0);
-   glBindTexture(GL_TEXTURE_2D,texture[5]);
+   glBindTexture(GL_TEXTURE_2D,texture[27]);
    palmtrunk(-4,5.2,9,0.525,0.05,0,0,0);
    glDisable(GL_TEXTURE_2D);
 
    glColor3f(0.863,0.078,0.235);
-   glBindTexture(GL_TEXTURE_2D,texture[5]);
+   glBindTexture(GL_TEXTURE_2D,texture[27]);
    cone(-4,5.7,9,0.525,0.525,270,0,0,0);
    glDisable(GL_TEXTURE_2D);
-
-   // Boat
-   draw_boat(8, 8);
 
 
    // Palm leaves
@@ -1720,6 +1428,10 @@ int main(int argc,char* argv[])
    texture[24] = LoadTexBMP("textures/coloflag1.bmp");
    texture[25] = LoadTexBMP("textures/coloflag2.bmp");
    texture[26] = LoadTexBMP("textures/coloflag3.bmp");
+   texture[27] = LoadTexBMP("textures/blackroof.bmp");
+
+   // Load objects
+   //obj = LoadOBJ(argv[1]);
 
    //  Pass control to GLUT so it can interact with the user
    ErrCheck("init");
