@@ -2,7 +2,7 @@
  * Mitchell Allen
  * CSCI5229: Computer Graphics
  * Final Project
- * 2022-06-19
+ * 2022-06-29
  */
 
 
@@ -40,7 +40,7 @@ int shininess =   0;       // Shininess (power of two)
 float shiny   =   1;       // Shininess (value)
 int zh        =  90;       // Light azimuth
 float ylight  = 9.8;       // Elevation of light
-unsigned int texture[28];     // Texture names
+unsigned int texture[29];     // Texture names
 int obj;          //  Object display list
 
 int num     =  1;     // Ocean polygons
@@ -78,6 +78,7 @@ double Fz = 0;
 //  Sine and cosine in degrees
 #define Sin(th) sin(3.14159265/180*(th))
 #define Cos(th) cos(3.14159265/180*(th))
+#define Pi(th) (180*th*sin)
 
 const int width = 16*50;
 const int height = 9*50;
@@ -361,30 +362,107 @@ static void seaweed(double x,double y,double z,
    glTexCoord2f(1.0,0.0); glVertex3f(+0.5,-0.01, 0.25);
    glTexCoord2f(1.0,0.0); glVertex3f(+0.5,+0.01, 0.25);
    glTexCoord2f(0.0,0.0); glVertex3f(-0.5,+0.01, 0.25);
+
+   glNormal3f(0,0.02,0.25);
+   glTexCoord2f(0.0,0.0); glVertex3f(-0.5,+0.01, 0.25);
+   glTexCoord2f(1.0,0.0); glVertex3f(+0.5,+0.01, 0.25);
+   glTexCoord2f(1.0,0.0); glVertex3f(+0.5,+0.03, 0.25);
+   glTexCoord2f(0.0,0.0); glVertex3f(-0.5,+0.03, 0.25);
+   
+   glNormal3f(0,0.04,0.25);
+   glTexCoord2f(0.0,0.0); glVertex3f(-0.5,+0.03, 0.25);
+   glTexCoord2f(1.0,0.0); glVertex3f(+0.5,+0.03, 0.25);
+   glTexCoord2f(1.0,0.0); glVertex3f(+0.5,+0.05, 0.25);
+   glTexCoord2f(0.0,0.0); glVertex3f(-0.5,+0.05, 0.25);
+   
+   glNormal3f(0,0.06,0.25);
+   glTexCoord2f(0.0,0.0); glVertex3f(-0.5,+0.05, 0.25);
+   glTexCoord2f(1.0,0.0); glVertex3f(+0.5,+0.05, 0.25);
+   glTexCoord2f(1.0,0.0); glVertex3f(+0.5,+0.07, 0.25);
+   glTexCoord2f(0.0,0.0); glVertex3f(-0.5,+0.07, 0.25);
+
    //  Back
    glNormal3f(0,0,-0.25);
    glTexCoord2f(0.0,0.0); glVertex3f(+0.5,-0.01,-0.25);
    glTexCoord2f(1.0,0.0); glVertex3f(-0.5,-0.01,-0.25);
    glTexCoord2f(1.0,0.0); glVertex3f(-0.5,+0.01,-0.25);
    glTexCoord2f(0.0,0.0); glVertex3f(+0.5,+0.01,-0.25);
+
+   glNormal3f(0,0.02,-0.25);
+   glTexCoord2f(0.0,0.0); glVertex3f(+0.5,+0.01,-0.25);
+   glTexCoord2f(1.0,0.0); glVertex3f(-0.5,+0.01,-0.25);
+   glTexCoord2f(1.0,0.0); glVertex3f(-0.5,+0.03,-0.25);
+   glTexCoord2f(0.0,0.0); glVertex3f(+0.5,+0.03,-0.25);
+
+   glNormal3f(0,0.04,-0.25);
+   glTexCoord2f(0.0,0.0); glVertex3f(+0.5,+0.03,-0.25);
+   glTexCoord2f(1.0,0.0); glVertex3f(-0.5,+0.03,-0.25);
+   glTexCoord2f(1.0,0.0); glVertex3f(-0.5,+0.05,-0.25);
+   glTexCoord2f(0.0,0.0); glVertex3f(+0.5,+0.05,-0.25);
+
+   glNormal3f(0,0.06,-0.25);
+   glTexCoord2f(0.0,0.0); glVertex3f(+0.5,+0.05,-0.25);
+   glTexCoord2f(1.0,0.0); glVertex3f(-0.5,+0.05,-0.25);
+   glTexCoord2f(1.0,0.0); glVertex3f(-0.5,+0.07,-0.25);
+   glTexCoord2f(0.0,0.0); glVertex3f(+0.5,+0.07,-0.25);
+
    //  Right
    glNormal3f(+0.5,0,0);
    glTexCoord2f(0.0,0.0); glVertex3f(+0.5,-0.01,+0.25);
    glTexCoord2f(1.0,0.0); glVertex3f(+0.5,-0.01,-0.25);
    glTexCoord2f(1.0,0.0); glVertex3f(+0.5,+0.01,-0.25);
    glTexCoord2f(0.0,0.0); glVertex3f(+0.5,+0.01,+0.25);
+
+   glNormal3f(+0.5,0.02,0);
+   glTexCoord2f(0.0,0.0); glVertex3f(+0.5,+0.01,+0.25);
+   glTexCoord2f(1.0,0.0); glVertex3f(+0.5,+0.01,-0.25);
+   glTexCoord2f(1.0,0.0); glVertex3f(+0.5,+0.03,-0.25);
+   glTexCoord2f(0.0,0.0); glVertex3f(+0.5,+0.03,+0.25);
+
+   glNormal3f(+0.5,0.04,0);
+   glTexCoord2f(0.0,0.0); glVertex3f(+0.5,+0.03,+0.25);
+   glTexCoord2f(1.0,0.0); glVertex3f(+0.5,+0.03,-0.25);
+   glTexCoord2f(1.0,0.0); glVertex3f(+0.5,+0.05,-0.25);
+   glTexCoord2f(0.0,0.0); glVertex3f(+0.5,+0.05,+0.25);
+
+   glNormal3f(+0.5,0.06,0);
+   glTexCoord2f(0.0,0.0); glVertex3f(+0.5,+0.05,+0.25);
+   glTexCoord2f(1.0,0.0); glVertex3f(+0.5,+0.05,-0.25);
+   glTexCoord2f(1.0,0.0); glVertex3f(+0.5,+0.07,-0.25);
+   glTexCoord2f(0.0,0.0); glVertex3f(+0.5,+0.07,+0.25);
+
    //  Left
    glNormal3f(-0.5,0,0);
    glTexCoord2f(0.0,0.0); glVertex3f(-0.5,-0.01,-0.25);
    glTexCoord2f(1.0,0.0); glVertex3f(-0.5,-0.01,+0.25);
    glTexCoord2f(1.0,0.0); glVertex3f(-0.5,+0.01,+0.25);
    glTexCoord2f(0.0,0.0); glVertex3f(-0.5,+0.01,-0.25);
-   //  Top
-   glNormal3f(0,+0.01,0);
-   glTexCoord2f(0.0,0.0); glVertex3f(-0.5,+0.01,+0.25);
-   glTexCoord2f(1.0,0.0); glVertex3f(+0.5,+0.01,+0.25);
-   glTexCoord2f(1.0,0.0); glVertex3f(+0.5,+0.01,-0.25);
+
+   glNormal3f(-0.5,0.02,0);
    glTexCoord2f(0.0,0.0); glVertex3f(-0.5,+0.01,-0.25);
+   glTexCoord2f(1.0,0.0); glVertex3f(-0.5,+0.01,+0.25);
+   glTexCoord2f(1.0,0.0); glVertex3f(-0.5,+0.03,+0.25);
+   glTexCoord2f(0.0,0.0); glVertex3f(-0.5,+0.03,-0.25);
+
+   glNormal3f(-0.5,0.04,0);
+   glTexCoord2f(0.0,0.0); glVertex3f(-0.5,+0.03,-0.25);
+   glTexCoord2f(1.0,0.0); glVertex3f(-0.5,+0.03,+0.25);
+   glTexCoord2f(1.0,0.0); glVertex3f(-0.5,+0.05,+0.25);
+   glTexCoord2f(0.0,0.0); glVertex3f(-0.5,+0.05,-0.25);
+
+   glNormal3f(-0.5,0.06,0);
+   glTexCoord2f(0.0,0.0); glVertex3f(-0.5,+0.05,-0.25);
+   glTexCoord2f(1.0,0.0); glVertex3f(-0.5,+0.05,+0.25);
+   glTexCoord2f(1.0,0.0); glVertex3f(-0.5,+0.07,+0.25);
+   glTexCoord2f(0.0,0.0); glVertex3f(-0.5,+0.07,-0.25);
+
+   //  Top
+   glNormal3f(0,+0.07,0);
+   glTexCoord2f(0.0,0.0); glVertex3f(-0.5,+0.07,+0.25);
+   glTexCoord2f(1.0,0.0); glVertex3f(+0.5,+0.07,+0.25);
+   glTexCoord2f(1.0,0.0); glVertex3f(+0.5,+0.07,-0.25);
+   glTexCoord2f(0.0,0.0); glVertex3f(-0.5,+0.07,-0.25);
+
    //  Bottom
    glNormal3f(0,-0.01,0);
    glTexCoord2f(0.0,0.0); glVertex3f(-0.5,-0.01,-0.25);
@@ -398,110 +476,6 @@ static void seaweed(double x,double y,double z,
    glDisable(GL_TEXTURE_2D);
 }
 
-
-// Draw a flag (adapted from examples)
-static void flagwave(double x,double y,double z,
-                 double dx,double dy,double dz,
-                 double th)
-{
-   //  Set specular color to white
-   float white[] = {1,1,1,1};
-   float black[] = {0,0,0,1};
-   glMaterialf(GL_FRONT_AND_BACK,GL_SHININESS,shiny);
-   glMaterialfv(GL_FRONT_AND_BACK,GL_SPECULAR,white);
-   glMaterialfv(GL_FRONT_AND_BACK,GL_EMISSION,black);
-   //  Save transformation
-   glPushMatrix();
-   //  Offset
-   glTranslated(x,y,z);
-   glRotated(th,0,1,0);
-   glScaled(dx,dy,dz);
-   //  Enable textures
-   glEnable(GL_TEXTURE_2D);
-   glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,GL_MODULATE);
-   //glBindTexture(GL_TEXTURE_2D,texture[3]);
-   //glColor3f(0.000, 0.392, 0.000);
-   //  Flag
-   glBegin(GL_QUADS);
-   //  Front
-   glNormal3f(0,0,0.25);
-   glTexCoord2f(0.0,0.0); glVertex3f(-0.5,-1, 2);
-   glTexCoord2f(1.0,0.0); glVertex3f(+0.5,-1, 2);
-   glTexCoord2f(1.0,0.0); glVertex3f(+0.5,+1, 2);
-   glTexCoord2f(0.0,0.0); glVertex3f(-0.5,+1, 2);
-   //  Back
-   glNormal3f(0,0,-0.25);
-   glTexCoord2f(0.0,0.0); glVertex3f(+0.5,-1,-2);
-   glTexCoord2f(1.0,0.0); glVertex3f(-0.5,-1,-2);
-   glTexCoord2f(1.0,0.0); glVertex3f(-0.5,+1,-2);
-   glTexCoord2f(0.0,0.0); glVertex3f(+0.5,+1,-2);
-   //  Right
-   glNormal3f(+0.5,0,0);
-   glTexCoord2f(0.0,0.0); glVertex3f(+0.5,-1,+0.01);
-   glTexCoord2f(1.0,0.0); glVertex3f(+0.5,-1,-0.01);
-   glTexCoord2f(1.0,0.0); glVertex3f(+0.5,+1,-0.01);
-   glTexCoord2f(0.0,0.0); glVertex3f(+0.5,+1,+0.01);
-   //  Left
-   glNormal3f(-0.5,0,0);
-   glTexCoord2f(0.0,0.0); glVertex3f(-0.5,-1,-0.01);
-   glTexCoord2f(1.0,0.0); glVertex3f(-0.5,-1,+0.01);
-   glTexCoord2f(1.0,0.0); glVertex3f(-0.5,+1,+0.01);
-   glTexCoord2f(0.0,0.0); glVertex3f(-0.5,+1,-0.01);
-   //  Top
-   glNormal3f(0,+0.01,0);
-   glTexCoord2f(0.0,0.0); glVertex3f(-0.5,+0.01,+0.01);
-   glTexCoord2f(1.0,0.0); glVertex3f(+0.5,+0.01,+0.01);
-   glTexCoord2f(1.0,0.0); glVertex3f(+0.5,+0.01,-0.01);
-   glTexCoord2f(0.0,0.0); glVertex3f(-0.5,+0.01,-0.25);
-   //  Bottom
-   glNormal3f(0,-0.01,0);
-   glTexCoord2f(0.0,0.0); glVertex3f(-0.5,-0.01,-0.01);
-   glTexCoord2f(1.0,0.0); glVertex3f(+0.5,-0.01,-0.01);
-   glTexCoord2f(1.0,0.0); glVertex3f(+0.5,-0.01,+0.01);
-   glTexCoord2f(0.0,0.0); glVertex3f(-0.5,-0.01,+0.01);
-   //  End
-   glEnd();
-   //  Undo transformations
-   glPopMatrix();
-   glDisable(GL_TEXTURE_2D);
-}
-
-// Draw a crab (adapted from examples)
-static void crab(double x,double y,double z,
-                 double dx,double dy,double dz,
-                 double th)
-{
-   //  Set specular color to white
-   float white[] = {1,1,1,1};
-   float black[] = {0,0,0,1};
-   glMaterialf(GL_FRONT_AND_BACK,GL_SHININESS,shiny);
-   glMaterialfv(GL_FRONT_AND_BACK,GL_SPECULAR,white);
-   glMaterialfv(GL_FRONT_AND_BACK,GL_EMISSION,black);
-   //  Save transformation
-   glPushMatrix();
-   //  Offset
-   glTranslated(x,y,z);
-   glRotated(th,0,1,0);
-   glScaled(dx,dy,dz);
-   //  Enable textures
-   glEnable(GL_TEXTURE_2D);
-   glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,GL_MODULATE);
-   //glBindTexture(GL_TEXTURE_2D,texture[3]);
-   //glColor3f(0.000, 0.392, 0.000);
-   //  Flag
-   glBegin(GL_POLYGON);
-   //  Front
-   glNormal3f(0,0,0.25);
-   glTexCoord2f(0.0,0.0); glVertex3f(-0.5,-0.01, 0.25);
-   glTexCoord2f(1.0,0.0); glVertex3f(+0.5,-0.01, 0.25);
-   glTexCoord2f(1.0,0.0); glVertex3f(+0.5,+0.01, 0.25);
-   glTexCoord2f(0.0,0.0); glVertex3f(-0.5,+0.01, 0.25);
-   //  End
-   glEnd();
-   //  Undo transformations
-   glPopMatrix();
-   glDisable(GL_TEXTURE_2D);
-}
 
 /*
  *  Draw a cylinder (adapted from Paul Hoffman)
@@ -577,6 +551,83 @@ void palmtrunk(double x,double y,double z,
    glPopMatrix();
    glDisable(GL_TEXTURE_2D);
 }
+
+
+/*
+ *  Draw a cylinder (adapted from Paul Hoffman)
+ *     at (x,y,z)
+ *     size (radius, height)
+ *     rotated th about the y axis
+ */
+void glass(double x,double y,double z,
+              double r,double h, 
+              double rx, double ry, double rz)
+{
+   int inc=5;
+   int th;
+
+   //  Set specular color to white
+   float white[] = {1,1,1,1};
+   float black[] = {0,0,0,1};
+   glMaterialf(GL_FRONT_AND_BACK,GL_SHININESS,shiny);
+   glMaterialfv(GL_FRONT_AND_BACK,GL_SPECULAR,white);
+   glMaterialfv(GL_FRONT_AND_BACK,GL_EMISSION,black);
+
+   //  Save transformation
+   glPushMatrix();
+   //  Offset, scale and rotate
+   glTranslated(x,y,z);
+   glRotated(rx,1,0,0);
+   glRotated(ry,0,1,0);
+   glRotated(rz,0,0,1);
+   glScaled(r,h,r);
+
+   //  Enable textures
+   glEnable(GL_TEXTURE_2D);
+   glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,GL_MODULATE);
+   glBindTexture(GL_TEXTURE_2D,texture[28]);
+
+   glColor3f(1,1,1);
+   // Upper Part
+   glBegin(GL_TRIANGLE_FAN);
+   glTexCoord2f(0.5,0.5); 
+   glVertex3f(0,1,0);
+   glNormal3f(0,1,0);
+   for (th=0;th<=360;th+=2*inc)
+   {
+      glTexCoord2f(2*Sin(th)+0.5,2*Cos(th)+0.5);
+      glVertex3d(Sin(th),1,Cos(th));
+   }
+   glEnd();
+
+   // Side Part
+   glBegin(GL_QUAD_STRIP); 
+   for (th=0;th<=360;th+=inc)
+   {
+      double u = th/360.0;
+      glNormal3f(Cos(th),0,Sin(th));
+      glTexCoord2d(4*u,1.0); glVertex3d(Cos(th),1,Sin(th));
+      glTexCoord2d(4*u,0.0); glVertex3d(Cos(th),0,Sin(th));
+    }
+   glEnd();
+
+   // Base Part
+   glBegin(GL_TRIANGLE_FAN);
+   glTexCoord2f(0.5,0.5); 
+   glVertex3f(0,0,0);
+   glNormal3f(0,-1,0);
+   for (th=0;th<=360;th+=2*inc)
+   {
+      glTexCoord2f(2*Sin(th)+0.5,2*Cos(th)+0.5);
+      glVertex3d(Sin(th),0,Cos(th));
+   }
+   glEnd();
+
+   //  Undo transformations and textures
+   glPopMatrix();
+   glDisable(GL_TEXTURE_2D);
+}
+
 
 static void Vertex(double th,double ph) //(adapted from examples)
 {
@@ -1013,9 +1064,12 @@ else
       float Specular[]  = {0.01*specular,0.01*specular,0.01*specular,1.0};
       //  Light position
       float Position[]  = {distance*Cos(zh),ylight,distance*Sin(zh),1.0};
+      float Position2[]  = {((distance*Cos(zh))/22)-4,5.5,((distance*Sin(zh))/22)+9,1.0};
       //  Draw light position as ball (still no lighting here)
       glColor3f(1,1,1);
       ball(Position[0],Position[1],Position[2] , 1);
+      //Ligthouse bulb
+      ball(Position2[0],Position2[1],Position2[2],0.05);
       //  OpenGL should normalize normal vectors
       glEnable(GL_NORMALIZE);
       //  Enable lighting
@@ -1032,6 +1086,13 @@ else
       glLightfv(GL_LIGHT0,GL_DIFFUSE ,Diffuse);
       glLightfv(GL_LIGHT0,GL_SPECULAR,Specular);
       glLightfv(GL_LIGHT0,GL_POSITION,Position);
+      //  Enable light 1
+      glEnable(GL_LIGHT1);
+      //  Set ambient, diffuse, specular components and position of light 1
+      glLightfv(GL_LIGHT1,GL_AMBIENT ,Ambient);
+      glLightfv(GL_LIGHT1,GL_DIFFUSE ,Diffuse);
+      glLightfv(GL_LIGHT1,GL_SPECULAR,Specular);
+      glLightfv(GL_LIGHT1,GL_POSITION,Position2);
    }
    else
       glDisable(GL_LIGHTING);
@@ -1131,12 +1192,35 @@ else
    palmtrunk(-4,3,9,0.425,2.2,0,0,0);
    glDisable(GL_TEXTURE_2D);
 
-
+   // Lighthouse platform
    glColor3f(0, 0, 0);
    glBindTexture(GL_TEXTURE_2D,texture[27]);
    palmtrunk(-4,5.2,9,0.525,0.05,0,0,0);
    glDisable(GL_TEXTURE_2D);
 
+   // Lighthouse railing
+   glColor3f(0,0,0);
+   glBindTexture(GL_TEXTURE_2D,texture[27]);
+   palmtrunk(-4.45,5.25,9,0.05,0.5,0,0,0);
+   glDisable(GL_TEXTURE_2D);
+
+   glColor3f(0,0,0);
+   glBindTexture(GL_TEXTURE_2D,texture[27]);
+   palmtrunk(-3.55,5.25,9,0.05,0.5,0,0,0);
+   glDisable(GL_TEXTURE_2D);
+
+   glColor3f(0,0,0);
+   glBindTexture(GL_TEXTURE_2D,texture[27]);
+   palmtrunk(-4,5.25,9.45,0.05,0.5,0,0,0);
+   glDisable(GL_TEXTURE_2D);
+
+   glColor3f(0,0,0);
+   glBindTexture(GL_TEXTURE_2D,texture[27]);
+   palmtrunk(-4,5.25,8.55,0.05,0.5,0,0,0);
+   glDisable(GL_TEXTURE_2D);
+
+
+   // Lighthouse roof
    glColor3f(0.863,0.078,0.235);
    glBindTexture(GL_TEXTURE_2D,texture[27]);
    cone(-4,5.7,9,0.525,0.525,270,0,0,0);
@@ -1148,19 +1232,13 @@ else
    glColor3f(0.4,0.4,0.4);
    glBindTexture(GL_TEXTURE_2D,texture[5]);
    hemisphere(-3, 2, -7, 2, 0, 0, 90);
-   //glDisable(GL_TEXTURE_2D);
+   glDisable(GL_TEXTURE_2D);
 
    // Flagpole
    glColor3f(0, 0, 0);
    glBindTexture(GL_TEXTURE_2D,texture[27]);
    palmtrunk(-3,3,-7,0.05,3.8,0,0,0);
    glDisable(GL_TEXTURE_2D);
-
-   // Flag
-   // glColor3f(1,1,1);
-   // glBindTexture(GL_TEXTURE_2D,texture[27]);
-   // flagwave(-3,3,-7,0.05,3.8,0,0,0);
-   // glDisable(GL_TEXTURE_2D);
    
    // Flag - waving
    glBindTexture(GL_TEXTURE_2D,texture[26]);
@@ -1201,15 +1279,22 @@ else
    // Seaweed
    //glColor3f(0.000, 0.392, 0.000);
    glBindTexture(GL_TEXTURE_2D,texture[21]);
-   seaweed(BobbingC[0]-1,-30,BobbingC[0]+1,0.1,2200,1,0);
-   seaweed(BobbingC[0]-3,-30,BobbingD[0]+2,0.1,2200,1,90);
-   seaweed(BobbingD[0],-30,BobbingA[0],1,2200,0.1,270);
+   seaweed(BobbingC[0]-1,-30,BobbingC[0]+1,0.1,410,1,0);
+   seaweed(BobbingC[0]-3,-30,BobbingD[0]+2,0.1,400,1,90);
+   seaweed(BobbingD[0],-30,BobbingA[0],1,380,0.1,270);
    glDisable(GL_TEXTURE_2D);
 
+
+   // Lighthouse casing
+   glColor4f(0.2, 0.2, 0.2, 0.2);
+   //glBindTexture(GL_TEXTURE_2D,texture[28]);
+   glass(-4,5.25,9,0.3,0.5,0,0,0);
+   //glDisable(GL_TEXTURE_2D);
 
    // Draw water surface
    glBindTexture(GL_TEXTURE_2D,texture[2]);
    water();
+   glDisable(GL_TEXTURE_3D);
 
 
    //glDisable(GL_TEXTURE_2D);
@@ -1563,6 +1648,7 @@ int main(int argc,char* argv[])
    texture[25] = LoadTexBMP("textures/coloflag2.bmp");
    texture[26] = LoadTexBMP("textures/coloflag3.bmp");
    texture[27] = LoadTexBMP("textures/blackroof.bmp");
+   texture[28] = LoadTexBMP("textures/shine1.bmp");
 
    // Load objects
    //obj = LoadOBJ(argv[1]);
