@@ -1128,7 +1128,7 @@ if (HasFog)
    glFogf(GL_FOG_DENSITY, FogDensity);                //How dense the fog will be
    glHint(GL_FOG_HINT, GL_DONT_CARE);                 //Fog hint value
    glFogf(GL_FOG_START, 5.0);                         //Fog start depth (50.0)
-   glFogf(GL_FOG_END, 75.0);                          //Fog end depth (400.0)
+   glFogf(GL_FOG_END, 65.0);                          //Fog end depth (400.0)
    glEnable(GL_FOG);                                  //Enables GL_FOG
 }
 else
@@ -1407,10 +1407,10 @@ else
    moon(2,10,2,1);
 
    // Beach ball 1
-   beachball(1,BobbingA[0]+2,4,0.2);
+   beachball(1,BobbingA[0]+2,4,0.4);
 
    // Beach ball 2
-   beachball(-7,BobbingB[0]+2,5,0.2);
+   beachball(-7,BobbingB[0]+2,5,0.25);
 
    // Beach ball 3
    beachball(7,BobbingC[0]+2,3,0.2);
@@ -1419,19 +1419,19 @@ else
    beachball(-18,BobbingD[0]+2,-4,0.2);
 
    // Beach ball 5
-   beachball(-4,BobbingC[0]+2,16,0.2);
+   beachball(-4,BobbingC[0]+2,16,0.27);
 
    // Beach ball 6
    beachball(9,BobbingB[0]+2,-16,0.2);
 
    // Beach ball 7
-   beachball(14,BobbingD[0]+2,6,0.2);
+   beachball(14,BobbingD[0]+2,6,0.34);
 
    // Beach ball 8
-   beachball(0,BobbingB[0]+2,-5,0.2);
+   beachball(0,BobbingB[0]+2,-5,0.1);
 
    // Beach ball 9
-   beachball(3.9,BobbingA[0]+2,-3,0.2);
+   beachball(3.9,BobbingC[0]+2,-3,0.8);
 
    // Beach ball 10
    beachball(-24,BobbingB[0]+2,-7,0.2);
@@ -1448,6 +1448,22 @@ else
    seaweed(BobbingB[0]+9.5,-30,BobbingA[0]+3.3,1,386,0.1,20);
    seaweed(BobbingC[0]-7.7,-30,BobbingC[0]+1.7,0.1,391,0.8,110);
    seaweed(BobbingD[0]-11.2,-30,BobbingC[0]+2.7,1,430,0.1,330);
+   seaweed(BobbingC[0]-21,-30,BobbingC[0]+1,0.1,410,1,0);
+   seaweed(BobbingB[0]-3,-30,BobbingD[0]+22,0.1,400,1,90);
+   seaweed(BobbingD[0]+22,-30,BobbingA[0],1,380,0.1,200);
+   seaweed(BobbingA[0]-5.1,-30,BobbingA[0]+2.4,0.7,320,0.1,290);
+   seaweed(BobbingD[0]+23.5,-30,BobbingB[0]-8,0.9,350,0.11,70);
+   seaweed(BobbingB[0]+29.5,-30,BobbingA[0]+23.3,1,386,0.1,20);
+   seaweed(BobbingC[0]-27.7,-30,BobbingC[0]+1.7,0.1,391,0.8,110);
+   seaweed(BobbingD[0]-11.2,-30,BobbingC[0]+22.7,1,430,0.1,330);
+   seaweed(BobbingC[0]-21,-30,BobbingC[0]+21,0.14,410,1,0);
+   seaweed(BobbingB[0]-23,-30,BobbingD[0]+22,0.04,400,1,90);
+   seaweed(BobbingD[0]+22,-30,BobbingA[0]+7.8,0.07,380,0.7,200);
+   seaweed(BobbingA[0]-25.1,-30,BobbingA[0]+2.4,0.7,320,0.1,290);
+   seaweed(BobbingD[0]+23.5,-30,BobbingB[0]-28,0.9,350,0.11,70);
+   seaweed(BobbingB[0]+19.5,-30,BobbingA[0]+28.3,1,386,0.1,20);
+   seaweed(BobbingC[0]-17.7,-30,BobbingC[0]+6.7,0.03,391,0.8,110);
+   seaweed(BobbingD[0]-21.2,-30,BobbingC[0]+27.7,1,430,0.1,330);
    glDisable(GL_TEXTURE_2D);
 
 
