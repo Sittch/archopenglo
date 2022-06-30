@@ -353,115 +353,115 @@ static void seaweed(double x,double y,double z,
    glEnable(GL_TEXTURE_2D);
    glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,GL_MODULATE);
    //glBindTexture(GL_TEXTURE_2D,texture[3]);
-   //glColor3f(0.000, 0.392, 0.000);
+   glColor3f(0.000, 0.392, 0.000);
    //  Seaweed
    glBegin(GL_QUADS);
    //  Front
    glNormal3f(0,0,0.25);
    glTexCoord2f(0.0,0.0); glVertex3f(-0.5,-0.01, 0.25);
    glTexCoord2f(1.0,0.0); glVertex3f(+0.5,-0.01, 0.25);
-   glTexCoord2f(1.0,0.0); glVertex3f(+0.5,+0.01, 0.25);
-   glTexCoord2f(0.0,0.0); glVertex3f(-0.5,+0.01, 0.25);
+   glTexCoord2f(1.0,0.0); glVertex3f(+0.5+(sin(bob)/4),+0.01, 0.25+(sin(bob)/4));
+   glTexCoord2f(0.0,0.0); glVertex3f(-0.5+(sin(bob)/4),+0.01, 0.25+(sin(bob)/4));
 
    glNormal3f(0,0.02,0.25);
-   glTexCoord2f(0.0,0.0); glVertex3f(-0.5,+0.01, 0.25);
-   glTexCoord2f(1.0,0.0); glVertex3f(+0.5,+0.01, 0.25);
-   glTexCoord2f(1.0,0.0); glVertex3f(+0.5,+0.03, 0.25);
-   glTexCoord2f(0.0,0.0); glVertex3f(-0.5,+0.03, 0.25);
+   glTexCoord2f(0.0,0.0); glVertex3f(-0.5+(sin(bob)/4),+0.01, 0.25+(sin(bob)/4));
+   glTexCoord2f(1.0,0.0); glVertex3f(+0.5+(sin(bob)/4),+0.01, 0.25+(sin(bob)/4));
+   glTexCoord2f(1.0,0.0); glVertex3f(+0.5+(cos(bob)/4),+0.03, 0.25+(cos(bob)/4));
+   glTexCoord2f(0.0,0.0); glVertex3f(-0.5+(cos(bob)/4),+0.03, 0.25+(cos(bob)/4));
    
    glNormal3f(0,0.04,0.25);
-   glTexCoord2f(0.0,0.0); glVertex3f(-0.5,+0.03, 0.25);
-   glTexCoord2f(1.0,0.0); glVertex3f(+0.5,+0.03, 0.25);
-   glTexCoord2f(1.0,0.0); glVertex3f(+0.5,+0.05, 0.25);
-   glTexCoord2f(0.0,0.0); glVertex3f(-0.5,+0.05, 0.25);
+   glTexCoord2f(0.0,0.0); glVertex3f(-0.5+(cos(bob)/4),+0.03, 0.25+(cos(bob)/4));
+   glTexCoord2f(1.0,0.0); glVertex3f(+0.5+(cos(bob)/4),+0.03, 0.25+(cos(bob)/4));
+   glTexCoord2f(1.0,0.0); glVertex3f(+0.5+(-sin(bob)/4),+0.05, 0.25+(-sin(bob)/4));
+   glTexCoord2f(0.0,0.0); glVertex3f(-0.5+(-sin(bob)/4),+0.05, 0.25+(-sin(bob)/4));
    
    glNormal3f(0,0.06,0.25);
-   glTexCoord2f(0.0,0.0); glVertex3f(-0.5,+0.05, 0.25);
-   glTexCoord2f(1.0,0.0); glVertex3f(+0.5,+0.05, 0.25);
-   glTexCoord2f(1.0,0.0); glVertex3f(+0.5,+0.07, 0.25);
-   glTexCoord2f(0.0,0.0); glVertex3f(-0.5,+0.07, 0.25);
+   glTexCoord2f(0.0,0.0); glVertex3f(-0.5+(-sin(bob)/4),+0.05, 0.25+(-sin(bob)/4));
+   glTexCoord2f(1.0,0.0); glVertex3f(+0.5+(-sin(bob)/4),+0.05, 0.25+(-sin(bob)/4));
+   glTexCoord2f(1.0,0.0); glVertex3f(+0.5+(-cos(bob)/4),+0.07, 0.25+(-cos(bob)/4));
+   glTexCoord2f(0.0,0.0); glVertex3f(-0.5+(-cos(bob)/4),+0.07, 0.25+(-cos(bob)/4));
 
    //  Back
    glNormal3f(0,0,-0.25);
    glTexCoord2f(0.0,0.0); glVertex3f(+0.5,-0.01,-0.25);
    glTexCoord2f(1.0,0.0); glVertex3f(-0.5,-0.01,-0.25);
-   glTexCoord2f(1.0,0.0); glVertex3f(-0.5,+0.01,-0.25);
-   glTexCoord2f(0.0,0.0); glVertex3f(+0.5,+0.01,-0.25);
+   glTexCoord2f(1.0,0.0); glVertex3f(-0.5+(sin(bob)/4),+0.01,-0.25+(sin(bob)/4));
+   glTexCoord2f(0.0,0.0); glVertex3f(+0.5+(sin(bob)/4),+0.01,-0.25+(sin(bob)/4));
 
    glNormal3f(0,0.02,-0.25);
-   glTexCoord2f(0.0,0.0); glVertex3f(+0.5,+0.01,-0.25);
-   glTexCoord2f(1.0,0.0); glVertex3f(-0.5,+0.01,-0.25);
-   glTexCoord2f(1.0,0.0); glVertex3f(-0.5,+0.03,-0.25);
-   glTexCoord2f(0.0,0.0); glVertex3f(+0.5,+0.03,-0.25);
+   glTexCoord2f(0.0,0.0); glVertex3f(+0.5+(sin(bob)/4),+0.01,-0.25+(sin(bob)/4));
+   glTexCoord2f(1.0,0.0); glVertex3f(-0.5+(sin(bob)/4),+0.01,-0.25+(sin(bob)/4));
+   glTexCoord2f(1.0,0.0); glVertex3f(-0.5+(cos(bob)/4),+0.03,-0.25+(cos(bob)/4));
+   glTexCoord2f(0.0,0.0); glVertex3f(+0.5+(cos(bob)/4),+0.03,-0.25+(cos(bob)/4));
 
    glNormal3f(0,0.04,-0.25);
-   glTexCoord2f(0.0,0.0); glVertex3f(+0.5,+0.03,-0.25);
-   glTexCoord2f(1.0,0.0); glVertex3f(-0.5,+0.03,-0.25);
-   glTexCoord2f(1.0,0.0); glVertex3f(-0.5,+0.05,-0.25);
-   glTexCoord2f(0.0,0.0); glVertex3f(+0.5,+0.05,-0.25);
+   glTexCoord2f(0.0,0.0); glVertex3f(+0.5+(cos(bob)/4),+0.03,-0.25+(cos(bob)/4));
+   glTexCoord2f(1.0,0.0); glVertex3f(-0.5+(cos(bob)/4),+0.03,-0.25+(cos(bob)/4));
+   glTexCoord2f(1.0,0.0); glVertex3f(-0.5+(-sin(bob)/4),+0.05,-0.25+(-sin(bob)/4));
+   glTexCoord2f(0.0,0.0); glVertex3f(+0.5+(-sin(bob)/4),+0.05,-0.25+(-sin(bob)/4));
 
    glNormal3f(0,0.06,-0.25);
-   glTexCoord2f(0.0,0.0); glVertex3f(+0.5,+0.05,-0.25);
-   glTexCoord2f(1.0,0.0); glVertex3f(-0.5,+0.05,-0.25);
-   glTexCoord2f(1.0,0.0); glVertex3f(-0.5,+0.07,-0.25);
-   glTexCoord2f(0.0,0.0); glVertex3f(+0.5,+0.07,-0.25);
+   glTexCoord2f(0.0,0.0); glVertex3f(+0.5+(-sin(bob)/4),+0.05,-0.25+(-sin(bob)/4));
+   glTexCoord2f(1.0,0.0); glVertex3f(-0.5+(-sin(bob)/4),+0.05,-0.25+(-sin(bob)/4));
+   glTexCoord2f(1.0,0.0); glVertex3f(-0.5+(-cos(bob)/4),+0.07,-0.25+(-cos(bob)/4));
+   glTexCoord2f(0.0,0.0); glVertex3f(+0.5+(-cos(bob)/4),+0.07,-0.25+(-cos(bob)/4));
 
    //  Right
    glNormal3f(+0.5,0,0);
    glTexCoord2f(0.0,0.0); glVertex3f(+0.5,-0.01,+0.25);
    glTexCoord2f(1.0,0.0); glVertex3f(+0.5,-0.01,-0.25);
-   glTexCoord2f(1.0,0.0); glVertex3f(+0.5,+0.01,-0.25);
-   glTexCoord2f(0.0,0.0); glVertex3f(+0.5,+0.01,+0.25);
+   glTexCoord2f(1.0,0.0); glVertex3f(+0.5+(sin(bob)/4),+0.01,-0.25+(sin(bob)/4));
+   glTexCoord2f(0.0,0.0); glVertex3f(+0.5+(sin(bob)/4),+0.01,+0.25+(sin(bob)/4));
 
    glNormal3f(+0.5,0.02,0);
-   glTexCoord2f(0.0,0.0); glVertex3f(+0.5,+0.01,+0.25);
-   glTexCoord2f(1.0,0.0); glVertex3f(+0.5,+0.01,-0.25);
-   glTexCoord2f(1.0,0.0); glVertex3f(+0.5,+0.03,-0.25);
-   glTexCoord2f(0.0,0.0); glVertex3f(+0.5,+0.03,+0.25);
+   glTexCoord2f(0.0,0.0); glVertex3f(+0.5+(sin(bob)/4),+0.01,+0.25+(sin(bob)/4));
+   glTexCoord2f(1.0,0.0); glVertex3f(+0.5+(sin(bob)/4),+0.01,-0.25+(sin(bob)/4));
+   glTexCoord2f(1.0,0.0); glVertex3f(+0.5+(cos(bob)/4),+0.03,-0.25+(cos(bob)/4));
+   glTexCoord2f(0.0,0.0); glVertex3f(+0.5+(cos(bob)/4),+0.03,+0.25+(cos(bob)/4));
 
    glNormal3f(+0.5,0.04,0);
-   glTexCoord2f(0.0,0.0); glVertex3f(+0.5,+0.03,+0.25);
-   glTexCoord2f(1.0,0.0); glVertex3f(+0.5,+0.03,-0.25);
-   glTexCoord2f(1.0,0.0); glVertex3f(+0.5,+0.05,-0.25);
-   glTexCoord2f(0.0,0.0); glVertex3f(+0.5,+0.05,+0.25);
+   glTexCoord2f(0.0,0.0); glVertex3f(+0.5+(cos(bob)/4),+0.03,+0.25+(cos(bob)/4));
+   glTexCoord2f(1.0,0.0); glVertex3f(+0.5+(cos(bob)/4),+0.03,-0.25+(cos(bob)/4));
+   glTexCoord2f(1.0,0.0); glVertex3f(+0.5+(-sin(bob)/4),+0.05,-0.25+(-sin(bob)/4));
+   glTexCoord2f(0.0,0.0); glVertex3f(+0.5+(-sin(bob)/4),+0.05,+0.25+(-sin(bob)/4));
 
    glNormal3f(+0.5,0.06,0);
-   glTexCoord2f(0.0,0.0); glVertex3f(+0.5,+0.05,+0.25);
-   glTexCoord2f(1.0,0.0); glVertex3f(+0.5,+0.05,-0.25);
-   glTexCoord2f(1.0,0.0); glVertex3f(+0.5,+0.07,-0.25);
-   glTexCoord2f(0.0,0.0); glVertex3f(+0.5,+0.07,+0.25);
+   glTexCoord2f(0.0,0.0); glVertex3f(+0.5+(-sin(bob)/4),+0.05,+0.25+(-sin(bob)/4));
+   glTexCoord2f(1.0,0.0); glVertex3f(+0.5+(-sin(bob)/4),+0.05,-0.25+(-sin(bob)/4));
+   glTexCoord2f(1.0,0.0); glVertex3f(+0.5+(-cos(bob)/4),+0.07,-0.25+(-cos(bob)/4));
+   glTexCoord2f(0.0,0.0); glVertex3f(+0.5+(-cos(bob)/4),+0.07,+0.25+(-cos(bob)/4));
 
    //  Left
    glNormal3f(-0.5,0,0);
    glTexCoord2f(0.0,0.0); glVertex3f(-0.5,-0.01,-0.25);
    glTexCoord2f(1.0,0.0); glVertex3f(-0.5,-0.01,+0.25);
-   glTexCoord2f(1.0,0.0); glVertex3f(-0.5,+0.01,+0.25);
-   glTexCoord2f(0.0,0.0); glVertex3f(-0.5,+0.01,-0.25);
+   glTexCoord2f(1.0,0.0); glVertex3f(-0.5+(sin(bob)/4),+0.01,+0.25+(sin(bob)/4));
+   glTexCoord2f(0.0,0.0); glVertex3f(-0.5+(sin(bob)/4),+0.01,-0.25+(sin(bob)/4));
 
    glNormal3f(-0.5,0.02,0);
-   glTexCoord2f(0.0,0.0); glVertex3f(-0.5,+0.01,-0.25);
-   glTexCoord2f(1.0,0.0); glVertex3f(-0.5,+0.01,+0.25);
-   glTexCoord2f(1.0,0.0); glVertex3f(-0.5,+0.03,+0.25);
-   glTexCoord2f(0.0,0.0); glVertex3f(-0.5,+0.03,-0.25);
+   glTexCoord2f(0.0,0.0); glVertex3f(-0.5+(sin(bob)/4),+0.01,-0.25+(sin(bob)/4));
+   glTexCoord2f(1.0,0.0); glVertex3f(-0.5+(sin(bob)/4),+0.01,+0.25+(sin(bob)/4));
+   glTexCoord2f(1.0,0.0); glVertex3f(-0.5+(cos(bob)/4),+0.03,+0.25+(cos(bob)/4));
+   glTexCoord2f(0.0,0.0); glVertex3f(-0.5+(cos(bob)/4),+0.03,-0.25+(cos(bob)/4));
 
    glNormal3f(-0.5,0.04,0);
-   glTexCoord2f(0.0,0.0); glVertex3f(-0.5,+0.03,-0.25);
-   glTexCoord2f(1.0,0.0); glVertex3f(-0.5,+0.03,+0.25);
-   glTexCoord2f(1.0,0.0); glVertex3f(-0.5,+0.05,+0.25);
-   glTexCoord2f(0.0,0.0); glVertex3f(-0.5,+0.05,-0.25);
+   glTexCoord2f(0.0,0.0); glVertex3f(-0.5+(cos(bob)/4),+0.03,-0.25+(cos(bob)/4));
+   glTexCoord2f(1.0,0.0); glVertex3f(-0.5+(cos(bob)/4),+0.03,+0.25+(cos(bob)/4));
+   glTexCoord2f(1.0,0.0); glVertex3f(-0.5+(-sin(bob)/4),+0.05,+0.25+(-sin(bob)/4));
+   glTexCoord2f(0.0,0.0); glVertex3f(-0.5+(-sin(bob)/4),+0.05,-0.25+(-sin(bob)/4));
 
    glNormal3f(-0.5,0.06,0);
-   glTexCoord2f(0.0,0.0); glVertex3f(-0.5,+0.05,-0.25);
-   glTexCoord2f(1.0,0.0); glVertex3f(-0.5,+0.05,+0.25);
-   glTexCoord2f(1.0,0.0); glVertex3f(-0.5,+0.07,+0.25);
-   glTexCoord2f(0.0,0.0); glVertex3f(-0.5,+0.07,-0.25);
+   glTexCoord2f(0.0,0.0); glVertex3f(-0.5+(-sin(bob)/4),+0.05,-0.25+(-sin(bob)/4));
+   glTexCoord2f(1.0,0.0); glVertex3f(-0.5+(-sin(bob)/4),+0.05,+0.25+(-sin(bob)/4));
+   glTexCoord2f(1.0,0.0); glVertex3f(-0.5+(-cos(bob)/4),+0.07,+0.25+(-cos(bob)/4));
+   glTexCoord2f(0.0,0.0); glVertex3f(-0.5+(-cos(bob)/4),+0.07,-0.25+(-cos(bob)/4));
 
    //  Top
    glNormal3f(0,+0.07,0);
-   glTexCoord2f(0.0,0.0); glVertex3f(-0.5,+0.07,+0.25);
-   glTexCoord2f(1.0,0.0); glVertex3f(+0.5,+0.07,+0.25);
-   glTexCoord2f(1.0,0.0); glVertex3f(+0.5,+0.07,-0.25);
-   glTexCoord2f(0.0,0.0); glVertex3f(-0.5,+0.07,-0.25);
+   glTexCoord2f(0.0,0.0); glVertex3f(-0.5+(-cos(bob)/4),+0.07,+0.25+(-cos(bob)/4));
+   glTexCoord2f(1.0,0.0); glVertex3f(+0.5+(-cos(bob)/4),+0.07,+0.25+(-cos(bob)/4));
+   glTexCoord2f(1.0,0.0); glVertex3f(+0.5+(-cos(bob)/4),+0.07,-0.25+(-cos(bob)/4));
+   glTexCoord2f(0.0,0.0); glVertex3f(-0.5+(-cos(bob)/4),+0.07,-0.25+(-cos(bob)/4));
 
    //  Bottom
    glNormal3f(0,-0.01,0);
@@ -959,6 +959,85 @@ void cone(double x,double y,double z,
 }
 
 
+// /*
+//  *  Draw IceBerg2
+//  *     at (x,y,z)
+//  *     Scaled at (dx,dy,dz)
+//  *     Rotated along y-axis (th)
+//  */
+// static void IceBerg2(double x,double y,double z,double dx,double dy,double dz,double rx, double ry, double rz)
+// {
+//  //  Save transformation
+//    glPushMatrix();
+//    //  Offset, scale and rotate
+//    glTranslated(x,y,z);
+//    glRotated(rx,1,0,0);
+//    glRotated(ry,0,1,0);
+//    glRotated(rz,0,0,1);
+//    glScaled(dx,dy,dz);
+
+//    //Texture
+//    glEnable(GL_TEXTURE_2D);
+//    glTexEnvi(GL_TEXTURE_ENV , GL_TEXTURE_ENV_MODE , GL_MODULATE);
+//    glBindTexture(GL_TEXTURE_2D,texture[22]);
+//    glColor3f(1,1,1);
+
+
+//    glBegin(GL_POLYGON);
+//    //  Top polygon
+//    glNormal3f(-0.04,-0.08,-0.02);
+//    glTexCoord2f(0,0); glVertex3f(-0.2,0.2,0.3); //1
+//    glTexCoord2f(0,1); glVertex3f(0.2,0,0.3); //2
+//    glTexCoord2f(1,1); glVertex3f(0.3,0,0.1);     //3
+//    glTexCoord2f(1,0); glVertex3f(0.4,0,0); //4
+//    glTexCoord2f(1,1); glVertex3f(0.4,0.2,0); //5
+//    glTexCoord2f(0,0); glVertex3f(0.2,0.2,0.1); //6
+//    glEnd();
+//    // bottom
+//    glBegin(GL_QUADS);
+//    glNormal3f(0.0,0.0,0.16);
+//    glTexCoord2f(0,0); glVertex3f(-0.4,0.2,0); //1
+//    glTexCoord2f(0,1); glVertex3f(0.4,0.2,0); //2
+//    glTexCoord2f(1,1); glVertex3f(0.4,0,0);     //3
+//    glTexCoord2f(1,0); glVertex3f(-0.4,0,0); //4
+//    glEnd();
+
+
+//    //Side 1
+//    // glBegin(GL_POLYGON);
+//    glBegin(GL_QUADS);
+//    glNormal3f(0.0,0.0,1);
+//    // glVertex3f(-0.2,0.2,0.3);
+//    glTexCoord2f(0,0); glVertex3f(-0.4,0,0);
+//    glTexCoord2f(0,1); glVertex3f(0.4,0,0);
+//    glTexCoord2f(1,1); glVertex3f(0.3,0,0.1);
+//    glTexCoord2f(1,0); glVertex3f(0.2,0,0.3);
+//    // glEnd();
+
+//    //Side 2
+//    // glBegin(GL_QUADS);
+//       glNormal3f(0.0,0.08,0);
+//    glTexCoord2f(0,0); glVertex3f(-0.2,0.2,0.3);
+//    glTexCoord2f(0,1); glVertex3f(0.2,0,0.3);
+//    glTexCoord2f(1,1); glVertex3f(-0.4,0,0);
+//    glTexCoord2f(1,0); glVertex3f(-0.4,0.2,0);
+
+//    //Side 3
+//       glNormal3f(0,0.22,0);
+//    glTexCoord2f(0,0); glVertex3f(-0.2,0.2,0.3);
+//    glTexCoord2f(0,1); glVertex3f(-0.4,0.2,0);
+//    glTexCoord2f(1,1); glVertex3f(0.4,0.2,0);
+//    glTexCoord2f(1,0); glVertex3f(0.2,0.2,0.1);
+//    glEnd();
+
+//       //  Undo transofrmations
+//     //  Switch off textures so it doesn't apply to the rest
+//    //glDisable(GL_TEXTURE_2D);
+//    glPopMatrix();
+
+// }
+
+
 /*
  *  Draw a ball (from examples)
  *     at (x,y,z)
@@ -1220,6 +1299,9 @@ else
    glDisable(GL_TEXTURE_2D);
 
 
+   // Iceberg
+   //IceBerg2(5,2,-5,10,10,10,90,180,90);
+
    // Lighthouse roof
    glColor3f(0.863,0.078,0.235);
    glBindTexture(GL_TEXTURE_2D,texture[27]);
@@ -1241,8 +1323,8 @@ else
    glDisable(GL_TEXTURE_2D);
    
    // Flag - waving
-   glBindTexture(GL_TEXTURE_2D,texture[26]);
-   flag();
+   //glBindTexture(GL_TEXTURE_2D,texture[26]);
+   seaweed(BobbingC[0]-3,10,BobbingC[0]-7,0.1,2,3,0);
 
 
    // Flag
@@ -1269,10 +1351,10 @@ else
    glColor3f(0.5, 0.7, 0.5);
    moon(2,10,2,1);
 
-   // Beach ball
+   // Beach ball 1
    beachball(1,BobbingA[0]+2,4,0.2);
 
-   // Beach ball - moving
+   // Beach ball 2
    beachball(-7,BobbingB[0]+2,5,0.2);
 
 
@@ -1280,8 +1362,13 @@ else
    //glColor3f(0.000, 0.392, 0.000);
    glBindTexture(GL_TEXTURE_2D,texture[21]);
    seaweed(BobbingC[0]-1,-30,BobbingC[0]+1,0.1,410,1,0);
-   seaweed(BobbingC[0]-3,-30,BobbingD[0]+2,0.1,400,1,90);
-   seaweed(BobbingD[0],-30,BobbingA[0],1,380,0.1,270);
+   seaweed(BobbingB[0]-3,-30,BobbingD[0]+2,0.1,400,1,90);
+   seaweed(BobbingD[0]+2,-30,BobbingA[0],1,380,0.1,200);
+   seaweed(BobbingA[0]-5.1,-30,BobbingA[0]+0.4,0.7,320,0.1,290);
+   seaweed(BobbingD[0]+3.5,-30,BobbingB[0]-8,0.9,350,0.11,70);
+   seaweed(BobbingB[0]+9.5,-30,BobbingA[0]+3.3,1,386,0.1,20);
+   seaweed(BobbingC[0]-7.7,-30,BobbingC[0]+1.7,0.1,391,0.8,110);
+   seaweed(BobbingD[0]-11.2,-30,BobbingC[0]+2.7,1,430,0.1,330);
    glDisable(GL_TEXTURE_2D);
 
 
