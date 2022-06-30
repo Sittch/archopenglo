@@ -399,6 +399,110 @@ static void seaweed(double x,double y,double z,
 }
 
 
+// Draw a flag (adapted from examples)
+static void flagwave(double x,double y,double z,
+                 double dx,double dy,double dz,
+                 double th)
+{
+   //  Set specular color to white
+   float white[] = {1,1,1,1};
+   float black[] = {0,0,0,1};
+   glMaterialf(GL_FRONT_AND_BACK,GL_SHININESS,shiny);
+   glMaterialfv(GL_FRONT_AND_BACK,GL_SPECULAR,white);
+   glMaterialfv(GL_FRONT_AND_BACK,GL_EMISSION,black);
+   //  Save transformation
+   glPushMatrix();
+   //  Offset
+   glTranslated(x,y,z);
+   glRotated(th,0,1,0);
+   glScaled(dx,dy,dz);
+   //  Enable textures
+   glEnable(GL_TEXTURE_2D);
+   glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,GL_MODULATE);
+   //glBindTexture(GL_TEXTURE_2D,texture[3]);
+   //glColor3f(0.000, 0.392, 0.000);
+   //  Flag
+   glBegin(GL_QUADS);
+   //  Front
+   glNormal3f(0,0,0.25);
+   glTexCoord2f(0.0,0.0); glVertex3f(-0.5,-1, 2);
+   glTexCoord2f(1.0,0.0); glVertex3f(+0.5,-1, 2);
+   glTexCoord2f(1.0,0.0); glVertex3f(+0.5,+1, 2);
+   glTexCoord2f(0.0,0.0); glVertex3f(-0.5,+1, 2);
+   //  Back
+   glNormal3f(0,0,-0.25);
+   glTexCoord2f(0.0,0.0); glVertex3f(+0.5,-1,-2);
+   glTexCoord2f(1.0,0.0); glVertex3f(-0.5,-1,-2);
+   glTexCoord2f(1.0,0.0); glVertex3f(-0.5,+1,-2);
+   glTexCoord2f(0.0,0.0); glVertex3f(+0.5,+1,-2);
+   //  Right
+   glNormal3f(+0.5,0,0);
+   glTexCoord2f(0.0,0.0); glVertex3f(+0.5,-1,+0.01);
+   glTexCoord2f(1.0,0.0); glVertex3f(+0.5,-1,-0.01);
+   glTexCoord2f(1.0,0.0); glVertex3f(+0.5,+1,-0.01);
+   glTexCoord2f(0.0,0.0); glVertex3f(+0.5,+1,+0.01);
+   //  Left
+   glNormal3f(-0.5,0,0);
+   glTexCoord2f(0.0,0.0); glVertex3f(-0.5,-1,-0.01);
+   glTexCoord2f(1.0,0.0); glVertex3f(-0.5,-1,+0.01);
+   glTexCoord2f(1.0,0.0); glVertex3f(-0.5,+1,+0.01);
+   glTexCoord2f(0.0,0.0); glVertex3f(-0.5,+1,-0.01);
+   //  Top
+   glNormal3f(0,+0.01,0);
+   glTexCoord2f(0.0,0.0); glVertex3f(-0.5,+0.01,+0.01);
+   glTexCoord2f(1.0,0.0); glVertex3f(+0.5,+0.01,+0.01);
+   glTexCoord2f(1.0,0.0); glVertex3f(+0.5,+0.01,-0.01);
+   glTexCoord2f(0.0,0.0); glVertex3f(-0.5,+0.01,-0.25);
+   //  Bottom
+   glNormal3f(0,-0.01,0);
+   glTexCoord2f(0.0,0.0); glVertex3f(-0.5,-0.01,-0.01);
+   glTexCoord2f(1.0,0.0); glVertex3f(+0.5,-0.01,-0.01);
+   glTexCoord2f(1.0,0.0); glVertex3f(+0.5,-0.01,+0.01);
+   glTexCoord2f(0.0,0.0); glVertex3f(-0.5,-0.01,+0.01);
+   //  End
+   glEnd();
+   //  Undo transformations
+   glPopMatrix();
+   glDisable(GL_TEXTURE_2D);
+}
+
+// Draw a crab (adapted from examples)
+static void crab(double x,double y,double z,
+                 double dx,double dy,double dz,
+                 double th)
+{
+   //  Set specular color to white
+   float white[] = {1,1,1,1};
+   float black[] = {0,0,0,1};
+   glMaterialf(GL_FRONT_AND_BACK,GL_SHININESS,shiny);
+   glMaterialfv(GL_FRONT_AND_BACK,GL_SPECULAR,white);
+   glMaterialfv(GL_FRONT_AND_BACK,GL_EMISSION,black);
+   //  Save transformation
+   glPushMatrix();
+   //  Offset
+   glTranslated(x,y,z);
+   glRotated(th,0,1,0);
+   glScaled(dx,dy,dz);
+   //  Enable textures
+   glEnable(GL_TEXTURE_2D);
+   glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,GL_MODULATE);
+   //glBindTexture(GL_TEXTURE_2D,texture[3]);
+   //glColor3f(0.000, 0.392, 0.000);
+   //  Flag
+   glBegin(GL_POLYGON);
+   //  Front
+   glNormal3f(0,0,0.25);
+   glTexCoord2f(0.0,0.0); glVertex3f(-0.5,-0.01, 0.25);
+   glTexCoord2f(1.0,0.0); glVertex3f(+0.5,-0.01, 0.25);
+   glTexCoord2f(1.0,0.0); glVertex3f(+0.5,+0.01, 0.25);
+   glTexCoord2f(0.0,0.0); glVertex3f(-0.5,+0.01, 0.25);
+   //  End
+   glEnd();
+   //  Undo transformations
+   glPopMatrix();
+   glDisable(GL_TEXTURE_2D);
+}
+
 /*
  *  Draw a cylinder (adapted from Paul Hoffman)
  *     at (x,y,z)
@@ -1038,6 +1142,36 @@ else
    cone(-4,5.7,9,0.525,0.525,270,0,0,0);
    glDisable(GL_TEXTURE_2D);
 
+
+   // Island 4
+   // Rocky beach
+   glColor3f(0.4,0.4,0.4);
+   glBindTexture(GL_TEXTURE_2D,texture[5]);
+   hemisphere(-3, 2, -7, 2, 0, 0, 90);
+   //glDisable(GL_TEXTURE_2D);
+
+   // Flagpole
+   glColor3f(0, 0, 0);
+   glBindTexture(GL_TEXTURE_2D,texture[27]);
+   palmtrunk(-3,3,-7,0.05,3.8,0,0,0);
+   glDisable(GL_TEXTURE_2D);
+
+   // Flag
+   // glColor3f(1,1,1);
+   // glBindTexture(GL_TEXTURE_2D,texture[27]);
+   // flagwave(-3,3,-7,0.05,3.8,0,0,0);
+   // glDisable(GL_TEXTURE_2D);
+   
+   // Flag - waving
+   glBindTexture(GL_TEXTURE_2D,texture[26]);
+   flag();
+
+
+   // Flag
+   // glColor3f(0.545, 0.271, 0.075);
+   // glBindTexture(GL_TEXTURE_2D,texture[16]);
+   // flag(-4,3,9,0.425,2.2,0,0,0);
+   // glDisable(GL_TEXTURE_2D);
 
    // Palm leaves
    //glColor3f(0.000, 0.392, 0.000);

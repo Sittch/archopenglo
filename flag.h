@@ -1,0 +1,2 @@
+void InitFlag();
+void flag();

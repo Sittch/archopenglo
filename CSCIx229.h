@@ -7,6 +7,7 @@
 #include <string.h>
 #include <math.h>
 #include "water.h"
+#include "flag.h"
 #include "noise.h"
 
 // GLEW _MUST_ be included first
