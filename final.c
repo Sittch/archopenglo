@@ -1223,10 +1223,37 @@ else
    glBindTexture(GL_TEXTURE_2D,texture[0]);
    sphere(-3,(BobbingC[0]/2)+1.9,3,0.1);
 
+   // Coconut - floating2
+   glColor3f(0.295, 0.131, 0.035);
+   glBindTexture(GL_TEXTURE_2D,texture[0]);
+   sphere(9.7,(BobbingD[0]/2)+1.9,4.5,0.1);
+
+   // Coconut - floating3
+   glColor3f(0.295, 0.131, 0.035);
+   glBindTexture(GL_TEXTURE_2D,texture[0]);
+   sphere(3,(BobbingA[0]/2)+1.9,-4,0.1);
+
+   // Coconut - floating4
+   glColor3f(0.295, 0.131, 0.035);
+   glBindTexture(GL_TEXTURE_2D,texture[0]);
+   sphere(-6,(BobbingB[0]/2)+1.9,-4.5,0.1);
+
    // Trunk - floating
    glColor3f(0.545, 0.271, 0.075);
    glBindTexture(GL_TEXTURE_2D,texture[4]);
    palmtrunk(-9,(BobbingD[0]/2)+1.9,2,0.125,0.6,0,0,90);
+   glDisable(GL_TEXTURE_2D);
+
+   // Trunk - floating2
+   glColor3f(0.545, 0.271, 0.075);
+   glBindTexture(GL_TEXTURE_2D,texture[4]);
+   palmtrunk(9,(BobbingA[0]/2)+1.9,-3.5,0.125,0.6,0,37,90);
+   glDisable(GL_TEXTURE_2D);
+
+   // Trunk - floating3
+   glColor3f(0.545, 0.271, 0.075);
+   glBindTexture(GL_TEXTURE_2D,texture[4]);
+   palmtrunk(17,(BobbingB[0]/2)+1.9,-14,0.125,0.6,0,290,90);
    glDisable(GL_TEXTURE_2D);
 
    // Fish object
@@ -1316,15 +1343,43 @@ else
    hemisphere(-3, 2, -7, 2, 0, 0, 90);
    glDisable(GL_TEXTURE_2D);
 
-   // Flagpole
-   glColor3f(0, 0, 0);
-   glBindTexture(GL_TEXTURE_2D,texture[27]);
-   palmtrunk(-3,3,-7,0.05,3.8,0,0,0);
+   // Palm trunk
+   glColor3f(0.545, 0.271, 0.075);
+   glBindTexture(GL_TEXTURE_2D,texture[4]);
+   palmtrunk(-3,3,-7,0.125,2.2,0,0,0);
+   glDisable(GL_TEXTURE_2D);
+
+   // Palm leaves
+   //glColor3f(0.000, 0.392, 0.000);
+   glBindTexture(GL_TEXTURE_2D,texture[3]);
+   slab(-3,5.25,-7,1,3,1,0);
+   slab(-3,5.25,-7,1,3,1,90);
+   glDisable(GL_TEXTURE_2D);
+
+   
+   // Island 5
+   // Rocky beach
+   glColor3f(0.4,0.4,0.4);
+   glBindTexture(GL_TEXTURE_2D,texture[5]);
+   hemisphere(27, 2, 29, 2, 0, 0, 90);
+   glDisable(GL_TEXTURE_2D);
+
+   // Palm trunk
+   glColor3f(0.545, 0.271, 0.075);
+   glBindTexture(GL_TEXTURE_2D,texture[4]);
+   palmtrunk(27,3,29,0.125,2.2,0,0,0);
+   glDisable(GL_TEXTURE_2D);
+
+   // Palm leaves
+   //glColor3f(0.000, 0.392, 0.000);
+   glBindTexture(GL_TEXTURE_2D,texture[3]);
+   slab(27,5.25,29,1,3,1,0);
+   slab(27,5.25,29,1,3,1,90);
    glDisable(GL_TEXTURE_2D);
    
    // Flag - waving
    //glBindTexture(GL_TEXTURE_2D,texture[26]);
-   seaweed(BobbingC[0]-3,10,BobbingC[0]-7,0.1,2,3,0);
+   //seaweed(BobbingC[0]-3,10,BobbingC[0]-7,0.1,2,3,0);
 
 
    // Flag
@@ -1357,12 +1412,36 @@ else
    // Beach ball 2
    beachball(-7,BobbingB[0]+2,5,0.2);
 
+   // Beach ball 3
+   beachball(7,BobbingC[0]+2,3,0.2);
+
+   // Beach ball 4
+   beachball(-18,BobbingD[0]+2,-4,0.2);
+
+   // Beach ball 5
+   beachball(-4,BobbingC[0]+2,16,0.2);
+
+   // Beach ball 6
+   beachball(9,BobbingB[0]+2,-16,0.2);
+
+   // Beach ball 7
+   beachball(14,BobbingD[0]+2,6,0.2);
+
+   // Beach ball 8
+   beachball(0,BobbingB[0]+2,-5,0.2);
+
+   // Beach ball 9
+   beachball(3.9,BobbingA[0]+2,-3,0.2);
+
+   // Beach ball 10
+   beachball(-24,BobbingB[0]+2,-7,0.2);
+
 
    // Seaweed
    //glColor3f(0.000, 0.392, 0.000);
    glBindTexture(GL_TEXTURE_2D,texture[21]);
    seaweed(BobbingC[0]-1,-30,BobbingC[0]+1,0.1,410,1,0);
-   seaweed(BobbingB[0]-3,-30,BobbingD[0]+2,0.1,400,1,90);
+   seaweed(BobbingB[0]-3,-30,BobbingD[0]+12,0.1,400,1,90);
    seaweed(BobbingD[0]+2,-30,BobbingA[0],1,380,0.1,200);
    seaweed(BobbingA[0]-5.1,-30,BobbingA[0]+0.4,0.7,320,0.1,290);
    seaweed(BobbingD[0]+3.5,-30,BobbingB[0]-8,0.9,350,0.11,70);
