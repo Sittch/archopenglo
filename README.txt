@@ -26,8 +26,10 @@ Roughly 112 hours have been spent on the scene.
 Key Bindings
   x/X	Toggle axes display
   p/P	Toggle display mode
+  f/F Toggle fog
   
   l/L	Toggle lighting
+  h/H Toggle lighthouse
   m/M	Toggle light movement
   5/6	Move light manually
   ]/[	Adjust sun elevation

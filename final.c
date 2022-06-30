@@ -28,6 +28,7 @@ double offset=0;
 
 // Light values (adapted from examples)
 int light     =   1;       // Lighting
+int lighthouse=   0;       // Lighthouse
 int one       =   1;       // Unit value
 int distance  =   5;       // Light distance
 int smooth    =   1;       // Smooth/Flat shading
@@ -959,85 +960,6 @@ void cone(double x,double y,double z,
 }
 
 
-// /*
-//  *  Draw IceBerg2
-//  *     at (x,y,z)
-//  *     Scaled at (dx,dy,dz)
-//  *     Rotated along y-axis (th)
-//  */
-// static void IceBerg2(double x,double y,double z,double dx,double dy,double dz,double rx, double ry, double rz)
-// {
-//  //  Save transformation
-//    glPushMatrix();
-//    //  Offset, scale and rotate
-//    glTranslated(x,y,z);
-//    glRotated(rx,1,0,0);
-//    glRotated(ry,0,1,0);
-//    glRotated(rz,0,0,1);
-//    glScaled(dx,dy,dz);
-
-//    //Texture
-//    glEnable(GL_TEXTURE_2D);
-//    glTexEnvi(GL_TEXTURE_ENV , GL_TEXTURE_ENV_MODE , GL_MODULATE);
-//    glBindTexture(GL_TEXTURE_2D,texture[22]);
-//    glColor3f(1,1,1);
-
-
-//    glBegin(GL_POLYGON);
-//    //  Top polygon
-//    glNormal3f(-0.04,-0.08,-0.02);
-//    glTexCoord2f(0,0); glVertex3f(-0.2,0.2,0.3); //1
-//    glTexCoord2f(0,1); glVertex3f(0.2,0,0.3); //2
-//    glTexCoord2f(1,1); glVertex3f(0.3,0,0.1);     //3
-//    glTexCoord2f(1,0); glVertex3f(0.4,0,0); //4
-//    glTexCoord2f(1,1); glVertex3f(0.4,0.2,0); //5
-//    glTexCoord2f(0,0); glVertex3f(0.2,0.2,0.1); //6
-//    glEnd();
-//    // bottom
-//    glBegin(GL_QUADS);
-//    glNormal3f(0.0,0.0,0.16);
-//    glTexCoord2f(0,0); glVertex3f(-0.4,0.2,0); //1
-//    glTexCoord2f(0,1); glVertex3f(0.4,0.2,0); //2
-//    glTexCoord2f(1,1); glVertex3f(0.4,0,0);     //3
-//    glTexCoord2f(1,0); glVertex3f(-0.4,0,0); //4
-//    glEnd();
-
-
-//    //Side 1
-//    // glBegin(GL_POLYGON);
-//    glBegin(GL_QUADS);
-//    glNormal3f(0.0,0.0,1);
-//    // glVertex3f(-0.2,0.2,0.3);
-//    glTexCoord2f(0,0); glVertex3f(-0.4,0,0);
-//    glTexCoord2f(0,1); glVertex3f(0.4,0,0);
-//    glTexCoord2f(1,1); glVertex3f(0.3,0,0.1);
-//    glTexCoord2f(1,0); glVertex3f(0.2,0,0.3);
-//    // glEnd();
-
-//    //Side 2
-//    // glBegin(GL_QUADS);
-//       glNormal3f(0.0,0.08,0);
-//    glTexCoord2f(0,0); glVertex3f(-0.2,0.2,0.3);
-//    glTexCoord2f(0,1); glVertex3f(0.2,0,0.3);
-//    glTexCoord2f(1,1); glVertex3f(-0.4,0,0);
-//    glTexCoord2f(1,0); glVertex3f(-0.4,0.2,0);
-
-//    //Side 3
-//       glNormal3f(0,0.22,0);
-//    glTexCoord2f(0,0); glVertex3f(-0.2,0.2,0.3);
-//    glTexCoord2f(0,1); glVertex3f(-0.4,0.2,0);
-//    glTexCoord2f(1,1); glVertex3f(0.4,0.2,0);
-//    glTexCoord2f(1,0); glVertex3f(0.2,0.2,0.1);
-//    glEnd();
-
-//       //  Undo transofrmations
-//     //  Switch off textures so it doesn't apply to the rest
-//    //glDisable(GL_TEXTURE_2D);
-//    glPopMatrix();
-
-// }
-
-
 /*
  *  Draw a ball (from examples)
  *     at (x,y,z)
@@ -1143,12 +1065,12 @@ else
       float Specular[]  = {0.01*specular,0.01*specular,0.01*specular,1.0};
       //  Light position
       float Position[]  = {distance*Cos(zh),ylight,distance*Sin(zh),1.0};
-      float Position2[]  = {((distance*Cos(zh))/22)-4,5.5,((distance*Sin(zh))/22)+9,1.0};
+      // float Position2[]  = {((distance*-Cos(zh))/22)-4,5.5,((distance*-Sin(zh))/22)+9,1.0};
       //  Draw light position as ball (still no lighting here)
       glColor3f(1,1,1);
       ball(Position[0],Position[1],Position[2] , 1);
-      //Ligthouse bulb
-      ball(Position2[0],Position2[1],Position2[2],0.05);
+      // //Ligthouse bulb
+      // ball(Position2[0],Position2[1],Position2[2],0.05);
       //  OpenGL should normalize normal vectors
       glEnable(GL_NORMALIZE);
       //  Enable lighting
@@ -1165,12 +1087,42 @@ else
       glLightfv(GL_LIGHT0,GL_DIFFUSE ,Diffuse);
       glLightfv(GL_LIGHT0,GL_SPECULAR,Specular);
       glLightfv(GL_LIGHT0,GL_POSITION,Position);
+      // //  Enable light 1
+      // glEnable(GL_LIGHT1);
+      // //  Set ambient, diffuse, specular components and position of light 1
+      // glLightfv(GL_LIGHT1,GL_AMBIENT ,Ambient);
+      // glLightfv(GL_LIGHT1,GL_DIFFUSE ,Diffuse);
+      // glLightfv(GL_LIGHT1,GL_SPECULAR,Specular);
+      // glLightfv(GL_LIGHT1,GL_POSITION,Position2);
+   }
+   else if (lighthouse)
+   {
+      
+      //  Translate intensity to color vectors
+      float Ambient2[]   = {0.01*ambient ,0.01*ambient ,0.01*ambient ,1.0};
+      float Diffuse2[]   = {0.01*diffuse ,0.01*diffuse ,0.01*diffuse ,1.0};
+      float Specular2[]  = {0.01*specular,0.01*specular,0.01*specular,1.0};
+      //  Light position
+      float Position2[]  = {((distance*-Cos(zh))/22)-4,5.5,((distance*-Sin(zh))/22)+9,1.0};
+      //  Draw light position as ball (still no lighting here)
+      glColor3f(1,1,1);
+      //Ligthouse bulb
+      ball(Position2[0],Position2[1],Position2[2],0.05);
+      //  OpenGL should normalize normal vectors
+      glEnable(GL_NORMALIZE);
+      //  Enable lighting
+      glEnable(GL_LIGHTING);
+      //  Location of viewer for specular calculations
+      glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER,local);
+      //  glColor sets ambient and diffuse color materials
+      glColorMaterial(GL_FRONT_AND_BACK,GL_AMBIENT_AND_DIFFUSE);
+      glEnable(GL_COLOR_MATERIAL);
       //  Enable light 1
       glEnable(GL_LIGHT1);
       //  Set ambient, diffuse, specular components and position of light 1
-      glLightfv(GL_LIGHT1,GL_AMBIENT ,Ambient);
-      glLightfv(GL_LIGHT1,GL_DIFFUSE ,Diffuse);
-      glLightfv(GL_LIGHT1,GL_SPECULAR,Specular);
+      glLightfv(GL_LIGHT1,GL_AMBIENT ,Ambient2);
+      glLightfv(GL_LIGHT1,GL_DIFFUSE ,Diffuse2);
+      glLightfv(GL_LIGHT1,GL_SPECULAR,Specular2);
       glLightfv(GL_LIGHT1,GL_POSITION,Position2);
    }
    else
@@ -1533,41 +1485,6 @@ void idle()
    //double waves = glutGet(GLUT_ELAPSED_TIME)/100.0;
    bob = fmod(3*t,360.0);
 
-   // Movement (adapted from Paul Hoffman)
-   // float step = GLUT_ELAPSED_TIME/1000;
-   // IceBerg(0+step*0.01,0,0.3+step*0.01,2.2,2.2,2.2,90,180,90);
-   
-    
-   // static float count = 0.0;
-
-   //  int i,j;
-   //  count += 0.05;
-   //  offset-=0.14;
-
-   //  for(i=0;i<200;i++)
-   //      for(j=0;j<WIDTH;j++)
-   //      {
-   //          matrix[i][j][0] = 0; // red
-   //          matrix[i][j][1] = 200 + 55 * sin(count + j * 0.02); // green
-   //          matrix[i][j][2] = 0; // blue
-   //      }
-
-   //  for(i=200;i<400;i++)
-   //      for(j=0;j<WIDTH;j++)
-   //      {
-   //          matrix[i][j][0] = 200 + 55 * sin(count + j * 0.02); // red
-   //          matrix[i][j][1] = 200 + 55 * sin(count + j * 0.02); // green
-   //          matrix[i][j][2] = 200 + 55 * sin(count + j * 0.02); // blue
-   //      }
-
-   //  for(i=400;i<600;i++)
-   //      for(j=0;j<WIDTH;j++)
-   //      {
-   //          matrix[i][j][0] = 0; // red
-   //          matrix[i][j][1] = 0; // green
-   //          matrix[i][j][2] = 200 + 55 * sin(count + j * 0.02); // blue
-   //      }
-
    //  Tell GLUT it is necessary to redisplay the scene
    glutPostRedisplay();
 }
@@ -1630,10 +1547,10 @@ void key(unsigned char ch,int x,int y)
    //  Reset camera
    else if (ch == '0')
       {
-      th =-280;      
+      th =-260;      
       ph = 25;        
-      fov= 43;       
-      dim= 10.0;     
+      fov= 55;       
+      dim= 12.1;     
       Ex = 0;
       Ey = 1;
       Ez = 15;
@@ -1656,6 +1573,12 @@ void key(unsigned char ch,int x,int y)
    //  Toggle lighting
    else if (ch == 'l' || ch == 'L')
       light = 1-light;
+   //  Toggle lighthouse
+   else if (ch == 'h' || ch == 'H')
+      lighthouse = 1-lighthouse;
+   // Toggle fog
+   else if (ch == 'f' || ch == 'F')
+      HasFog = 1-HasFog;
    //  Toggle light movement
    else if (ch == 'm' || ch == 'M')
       move = 1-move;
