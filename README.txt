@@ -1,5 +1,3 @@
-% Archopenglo
-
 Key Bindings
   x/X	Toggle axes display
   p/P	Toggle display mode
