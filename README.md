@@ -1,4 +1,5 @@
 Key Bindings<br/>
+<br/>
   x/X	Toggle axes display<br/>
   p/P	Toggle display mode<br/>
   f/F Toggle fog<br/>
