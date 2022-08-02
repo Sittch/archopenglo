@@ -39,5 +39,6 @@ that, due to the nature of the glFog function, there is not a straightforward wa
 Due to implementation difficulties, the "flag" and "fish" files are unused within the final
 product.
 <br/>
+<br/>
 ![demo](https://github.com/Sittch/archopenglo/blob/main/demo.gif)<br/>
 <br/>
