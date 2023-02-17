@@ -1,3 +1,4 @@
+Archipelago in OpenGL<br/>
 <br/>
 ![demo](https://github.com/Sittch/archopenglo/blob/main/demo.gif)<br/>
 This is an OpenGL program that displays an archipelago scene. There are multiple desert islands
